@@ -43,7 +43,7 @@ func (s *StandAloneStorage) Stop() error {
 func (s *StandAloneStorage) GetCF(cf string, key []byte) ([]byte, error) {
 	val, err := engine_util.GetCFFromTxn(s.txn, cf, key)
 	if err != nil {
-		return nil, err
+		return nil, nil
 	}
 	return val, err
 }
