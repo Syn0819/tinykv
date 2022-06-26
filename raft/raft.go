@@ -180,19 +180,57 @@ func (r *Raft) sendHeartbeat(to uint64) {
 	// Your Code Here (2A).
 }
 
+// checkSendElection check whether the node need to start election
+func (r *Raft) checkSendElection() {
+	r.electionElapsed++
+	if r.electionElapsed >= r.electionTimeout {
+		r.electionElapsed = 0
+		r.Step(pb.Message{MsgType: pb.MessageType_MsgHup})
+	}
+}
+
+// checkSendHeartbeat check whether the leader need to send heart beat to peers
+func (r *Raft) checkSendHeartbeat() {
+	r.heartbeatElapsed++
+	if r.heartbeatElapsed >= r.heartbeatTimeout {
+		r.heartbeatElapsed = 0
+		r.Step(pb.Message{MsgType: pb.MessageType_MsgHeartbeat})
+	}
+}
+
 // tick advances the internal logical clock by a single tick.
 func (r *Raft) tick() {
 	// Your Code Here (2A).
+	switch r.State {
+	case StateFollower:
+		r.checkSendElection()
+	case StateCandidate:
+		r.checkSendElection()
+	case StateLeader:
+		r.checkSendHeartbeat()
+	}
 }
 
 // becomeFollower transform this peer's state to Follower
 func (r *Raft) becomeFollower(term uint64, lead uint64) {
 	// Your Code Here (2A).
+	r.State = StateFollower
+	r.Lead = lead
+	r.Term = term
+	r.Vote = None
 }
 
 // becomeCandidate transform this peer's state to candidate
 func (r *Raft) becomeCandidate() {
 	// Your Code Here (2A).
+	r.Term++
+	r.Vote = r.id
+	r.State = StateCandidate
+	r.Lead = None
+
+	r.votes = make(map[uint64]bool)
+	// vote itself
+	r.votes[r.id] = true
 }
 
 // becomeLeader transform this peer's state to leader
@@ -201,31 +239,78 @@ func (r *Raft) becomeLeader() {
 	// NOTE: Leader should propose a noop entry on its term
 }
 
+func (r *Raft) followerMsgHandle(m pb.Message) {
+	switch m.MsgType {
+	case pb.MessageType_MsgHup:
+		r.handleElection()
+	case pb.MessageType_MsgAppend:
+		r.handleAppendEntries(m)
+	case pb.MessageType_MsgAppendResponse:
+	case pb.MessageType_MsgBeat:
+	case pb.MessageType_MsgHeartbeat:
+	case pb.MessageType_MsgHeartbeatResponse:
+	case pb.MessageType_MsgPropose:
+	case pb.MessageType_MsgRequestVote:
+		r.handleRequestVote(m)
+	case pb.MessageType_MsgRequestVoteResponse:
+	case pb.MessageType_MsgSnapshot:
+	case pb.MessageType_MsgTimeoutNow:
+	case pb.MessageType_MsgTransferLeader:
+	}
+}
+
+func (r *Raft) candidateMsgHandle(m pb.Message) {
+	switch m.MsgType {
+	case pb.MessageType_MsgHup:
+		r.handleElection()
+	case pb.MessageType_MsgAppend:
+		r.handleAppendEntries(m)
+	case pb.MessageType_MsgAppendResponse:
+	case pb.MessageType_MsgBeat:
+	case pb.MessageType_MsgHeartbeat:
+	case pb.MessageType_MsgHeartbeatResponse:
+	case pb.MessageType_MsgPropose:
+	case pb.MessageType_MsgRequestVote:
+		r.handleRequestVote(m)
+	case pb.MessageType_MsgRequestVoteResponse:
+	case pb.MessageType_MsgSnapshot:
+	case pb.MessageType_MsgTimeoutNow:
+	case pb.MessageType_MsgTransferLeader:
+	}
+}
+
+func (r *Raft) leaderMsgHandle(m pb.Message) {
+	switch m.MsgType {
+	case pb.MessageType_MsgHup:
+	case pb.MessageType_MsgAppend:
+		r.handleAppendEntries(m)
+	case pb.MessageType_MsgAppendResponse:
+	case pb.MessageType_MsgBeat:
+	case pb.MessageType_MsgHeartbeat:
+	case pb.MessageType_MsgHeartbeatResponse:
+	case pb.MessageType_MsgPropose:
+	case pb.MessageType_MsgRequestVote:
+		r.handleRequestVote(m)
+	case pb.MessageType_MsgRequestVoteResponse:
+	case pb.MessageType_MsgSnapshot:
+	case pb.MessageType_MsgTimeoutNow:
+	case pb.MessageType_MsgTransferLeader:
+	}
+}
+
 // Step the entrance of handle message, see `MessageType`
 // on `eraftpb.proto` for what msgs should be handled
 func (r *Raft) Step(m pb.Message) error {
 	// Your Code Here (2A).
 	switch r.State {
 	case StateFollower:
+		r.followerMsgHandle(m)
 	case StateCandidate:
+		r.candidateMsgHandle(m)
 	case StateLeader:
+		r.leaderMsgHandle(m)
 	}
 	return nil
-}
-
-// handleAppendEntries handle AppendEntries RPC request
-func (r *Raft) handleAppendEntries(m pb.Message) {
-	// Your Code Here (2A).
-}
-
-// handleHeartbeat handle Heartbeat RPC request
-func (r *Raft) handleHeartbeat(m pb.Message) {
-	// Your Code Here (2A).
-}
-
-// handleSnapshot handle Snapshot RPC request
-func (r *Raft) handleSnapshot(m pb.Message) {
-	// Your Code Here (2C).
 }
 
 // addNode add a new node to raft group
