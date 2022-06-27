@@ -165,19 +165,41 @@ func newRaft(c *Config) *Raft {
 		panic(err.Error())
 	}
 	// Your Code Here (2A).
-	return nil
-}
+	nRaft := &Raft{
+		id:               c.ID,
+		RaftLog:          newLog(c.Storage),
+		Prs:              make(map[uint64]*Progress),
+		electionTimeout:  c.ElectionTick,
+		heartbeatTimeout: c.HeartbeatTick,
+		votes:            make(map[uint64]bool),
+	}
 
-// sendAppend sends an append RPC with new entries (if any) and the
-// current commit index to the given peer. Returns true if a message was sent.
-func (r *Raft) sendAppend(to uint64) bool {
-	// Your Code Here (2A).
-	return false
-}
+	nRaft.becomeFollower(0, None)
+	// paramters read from storage
+	hardState, confState, err := c.Storage.InitialState()
+	if err != nil {
+		panic(err)
+	}
+	nRaft.Term = hardState.GetTerm()
+	nRaft.Vote = hardState.GetVote()
+	nRaft.RaftLog.committed = hardState.GetCommit()
+	if c.Applied > 0 {
+		nRaft.RaftLog.applied = c.Applied
+	}
 
-// sendHeartbeat sends a heartbeat RPC to the given peer.
-func (r *Raft) sendHeartbeat(to uint64) {
-	// Your Code Here (2A).
+	if c.peers == nil {
+		c.peers = confState.Nodes
+	}
+
+	lastLogIndex := nRaft.RaftLog.LastIndex()
+	for _, peer := range c.peers {
+		if peer == nRaft.id {
+			nRaft.Prs[peer] = &Progress{Next: lastLogIndex + 1, Match: lastLogIndex}
+		} else {
+			nRaft.Prs[peer] = &Progress{Next: lastLogIndex + 1, Match: 0}
+		}
+	}
+	return nRaft
 }
 
 // checkSendElection check whether the node need to start election
@@ -248,6 +270,7 @@ func (r *Raft) followerMsgHandle(m pb.Message) {
 	case pb.MessageType_MsgAppendResponse:
 	case pb.MessageType_MsgBeat:
 	case pb.MessageType_MsgHeartbeat:
+		r.handleHeartbeat(m)
 	case pb.MessageType_MsgHeartbeatResponse:
 	case pb.MessageType_MsgPropose:
 	case pb.MessageType_MsgRequestVote:
@@ -268,6 +291,7 @@ func (r *Raft) candidateMsgHandle(m pb.Message) {
 	case pb.MessageType_MsgAppendResponse:
 	case pb.MessageType_MsgBeat:
 	case pb.MessageType_MsgHeartbeat:
+		r.handleHeartbeat(m)
 	case pb.MessageType_MsgHeartbeatResponse:
 	case pb.MessageType_MsgPropose:
 	case pb.MessageType_MsgRequestVote:
@@ -289,6 +313,7 @@ func (r *Raft) leaderMsgHandle(m pb.Message) {
 	case pb.MessageType_MsgHeartbeat:
 	case pb.MessageType_MsgHeartbeatResponse:
 	case pb.MessageType_MsgPropose:
+		r.handlePropose(m)
 	case pb.MessageType_MsgRequestVote:
 		r.handleRequestVote(m)
 	case pb.MessageType_MsgRequestVoteResponse:
