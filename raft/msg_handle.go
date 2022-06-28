@@ -3,6 +3,7 @@ package raft
 import (
 	"sort"
 
+	"github.com/pingcap-incubator/tinykv/log"
 	pb "github.com/pingcap-incubator/tinykv/proto/pkg/eraftpb"
 )
 
@@ -64,6 +65,10 @@ func (r *Raft) handleRequestVote(m pb.Message) {
 	r.Vote = m.From
 	r.electionElapsed = 0
 	r.sendRequestVoteResponse(m.From, false)
+
+}
+
+func (r *Raft) handleRequestVoteResponse(m pb.Message) {
 
 }
 
@@ -149,14 +154,48 @@ func (r *Raft) handleHeartbeat(m pb.Message) {
 	// Your Code Here (2A).
 	if m.Term < r.Term {
 		r.sendHeartbeatResponse(m.From, false)
+		return
 	}
+
+	r.Lead = m.From
+	r.electionElapsed = 0
+	r.sendHeartbeatResponse(m.From, true)
 }
 
+// the client propose log entries to the raft
+// finally, the propose will warped as this message
 func (r *Raft) handlePropose(m pb.Message) {
+	lastLogIndex := r.RaftLog.LastIndex()
+	entries := m.Entries
 
+	for i, entry := range entries {
+		entry.Term = r.Term
+		entry.Index = lastLogIndex + uint64(i) + 1
+		r.RaftLog.entries = append(r.RaftLog.entries, *entry)
+	}
+
+	r.Prs[r.id].Match = r.RaftLog.LastIndex()
+	r.Prs[r.id].Next = r.Prs[r.id].Match + 1
+
+	if len(r.Prs) == 1 {
+		r.RaftLog.committed = r.Prs[r.id].Match
+	} else {
+		r.broadcastAppend()
+	}
 }
 
 // handleSnapshot handle Snapshot RPC request
 func (r *Raft) handleSnapshot(m pb.Message) {
 	// Your Code Here (2C).
+}
+
+func (r *Raft) handleBeat(m pb.Message) {
+	for peer := range r.Prs {
+		log.Infof("node:%v, handleBeat, sendHeartbeat, to:%v", r.id, peer)
+		if peer == r.id {
+			continue
+		} else {
+			r.sendHeartbeat(peer)
+		}
+	}
 }

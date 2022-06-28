@@ -17,6 +17,7 @@ package raft
 import (
 	"errors"
 
+	"github.com/pingcap-incubator/tinykv/log"
 	pb "github.com/pingcap-incubator/tinykv/proto/pkg/eraftpb"
 )
 
@@ -214,10 +215,13 @@ func (r *Raft) checkSendElection() {
 // checkSendHeartbeat check whether the leader need to send heart beat to peers
 func (r *Raft) checkSendHeartbeat() {
 	r.heartbeatElapsed++
+	log.Infof("node:%v, checkSendHeartbeat, heartbeatElapsed:%v, heartbeatTimeout:%v",
+		r.id, r.heartbeatElapsed, r.heartbeatTimeout)
 	if r.heartbeatElapsed >= r.heartbeatTimeout {
 		r.heartbeatElapsed = 0
-		r.Step(pb.Message{MsgType: pb.MessageType_MsgHeartbeat})
+		r.Step(pb.Message{MsgType: pb.MessageType_MsgBeat})
 	}
+
 }
 
 // tick advances the internal logical clock by a single tick.
@@ -259,6 +263,36 @@ func (r *Raft) becomeCandidate() {
 func (r *Raft) becomeLeader() {
 	// Your Code Here (2A).
 	// NOTE: Leader should propose a noop entry on its term
+	r.State = StateLeader
+	r.Lead = r.id
+	r.heartbeatElapsed = 0
+
+	// according to the raft paper, the Prs should reinitialized after election
+	lastLogIndex := r.RaftLog.LastIndex()
+
+	// noop entry
+	entry := pb.Entry{
+		Term:  r.Term,
+		Index: lastLogIndex + 1,
+	}
+	r.RaftLog.entries = append(r.RaftLog.entries, entry)
+
+	for peer := range r.Prs {
+		if peer == r.id {
+			r.Prs[peer].Next = lastLogIndex + 2
+			r.Prs[peer].Match = lastLogIndex + 1
+		} else {
+			r.Prs[peer].Next = lastLogIndex + 1
+			r.Prs[peer].Match = 0
+		}
+	}
+
+	if len(r.Prs) == 1 {
+		r.RaftLog.committed = r.Prs[r.id].Match
+	} else {
+		r.broadcastAppend()
+	}
+	log.Infof("node:%v, becomeLeader", r.id)
 }
 
 func (r *Raft) followerMsgHandle(m pb.Message) {
@@ -310,6 +344,7 @@ func (r *Raft) leaderMsgHandle(m pb.Message) {
 		r.handleAppendEntries(m)
 	case pb.MessageType_MsgAppendResponse:
 	case pb.MessageType_MsgBeat:
+		r.handleBeat(m)
 	case pb.MessageType_MsgHeartbeat:
 	case pb.MessageType_MsgHeartbeatResponse:
 	case pb.MessageType_MsgPropose:
@@ -317,6 +352,7 @@ func (r *Raft) leaderMsgHandle(m pb.Message) {
 	case pb.MessageType_MsgRequestVote:
 		r.handleRequestVote(m)
 	case pb.MessageType_MsgRequestVoteResponse:
+		r.handleRequestVoteResponse(m)
 	case pb.MessageType_MsgSnapshot:
 	case pb.MessageType_MsgTimeoutNow:
 	case pb.MessageType_MsgTransferLeader:
@@ -327,6 +363,10 @@ func (r *Raft) leaderMsgHandle(m pb.Message) {
 // on `eraftpb.proto` for what msgs should be handled
 func (r *Raft) Step(m pb.Message) error {
 	// Your Code Here (2A).
+	// Rules for servers: All servers 2
+	if m.Term > r.Term {
+		r.becomeFollower(m.Term, None)
+	}
 	switch r.State {
 	case StateFollower:
 		r.followerMsgHandle(m)

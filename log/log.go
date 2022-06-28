@@ -12,8 +12,9 @@ import (
 	"io"
 	"log"
 	"os"
-	"runtime"
 )
+
+const COUT = false
 
 const (
 	Ldate         = log.Ldate
@@ -53,8 +54,15 @@ const FORMAT_TIME_HOUR string = "2006010215"
 var _log *Logger = New()
 
 func init() {
+	/* logFile, err := os.OpenFile("/home/syn0819/syn/tinykv/mylog/raft.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+	if err != nil {
+		fmt.Println("open log file failed erro: ", err)
+		Panic(err)
+	}
+	SetOutput(logFile) */
 	SetFlags(Ldate | Ltime | Lshortfile)
-	SetHighlighting(runtime.GOOS != "windows")
+	//SetHighlighting(runtime.GOOS != "windows")
+	SetHighlighting(false)
 }
 
 func GlobalLogger() *log.Logger {
@@ -70,6 +78,10 @@ func GetLogLevel() LogLevel {
 
 func SetFlags(flags int) {
 	_log._log.SetFlags(flags)
+}
+
+func SetOutput(logFile *os.File) {
+	_log._log.SetOutput(logFile)
 }
 
 func Info(v ...interface{}) {
@@ -173,12 +185,15 @@ func (l *Logger) logf(t LogType, format string, v ...interface{}) {
 
 	logStr, logColor := LogTypeToString(t)
 	var s string
-	if l.highlighting {
-		s = "\033" + logColor + "m[" + logStr + "] " + fmt.Sprintf(format, v...) + "\033[0m"
-	} else {
-		s = "[" + logStr + "] " + fmt.Sprintf(format, v...)
+	if COUT {
+		if l.highlighting {
+			s = "\033" + logColor + "m[" + logStr + "] " + fmt.Sprintf(format, v...) + "\033[0m"
+		} else {
+			s = "[" + logStr + "] " + fmt.Sprintf(format, v...)
+		}
+		l._log.Output(4, s)
 	}
-	l._log.Output(4, s)
+
 }
 
 func (l *Logger) Fatal(v ...interface{}) {

@@ -47,8 +47,32 @@ func (r *Raft) sendAppendEntriesResponse(to uint64, reject bool, index uint64, t
 // current commit index to the given peer. Returns true if a message was sent.
 func (r *Raft) sendAppend(to uint64) bool {
 	// Your Code Here (2A).
+	// synchronize the log entries by the log record in leader
+	recordLogIndex := r.Prs[to].Next
+	recordLogTerm, err := r.RaftLog.Term(recordLogIndex)
+	if err != nil {
+		panic(err)
+	}
 
-	return false
+	lens := len(r.RaftLog.entries)
+	var entires []*pb.Entry
+	for i := recordLogIndex - r.RaftLog.firstIndex + 1; i < uint64(lens); i++ {
+		entires = append(entires, &r.RaftLog.entries[i])
+	}
+
+	msg := pb.Message{
+		To:      to,
+		MsgType: pb.MessageType_MsgAppend,
+		From:    r.id,
+		Term:    r.Term,
+		LogTerm: recordLogTerm,
+		Index:   recordLogIndex,
+		Entries: entires,
+		Commit:  r.RaftLog.committed,
+	}
+	r.msgs = append(r.msgs, msg)
+	log.Infof("node:%v, sendAppend, to:%v", r.id, to)
+	return true
 }
 
 // sendHeartbeat sends a heartbeat RPC to the given peer.
