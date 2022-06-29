@@ -16,6 +16,7 @@ package raft
 
 import (
 	"errors"
+	"math/rand"
 
 	"github.com/pingcap-incubator/tinykv/log"
 	pb "github.com/pingcap-incubator/tinykv/proto/pkg/eraftpb"
@@ -136,6 +137,8 @@ type Raft struct {
 	heartbeatTimeout int
 	// baseline of election interval
 	electionTimeout int
+
+	randomElectionTimeout int
 	// number of ticks since it reached last heartbeatTimeout.
 	// only leader keeps heartbeatElapsed.
 	heartbeatElapsed int
@@ -176,6 +179,7 @@ func newRaft(c *Config) *Raft {
 	}
 
 	nRaft.becomeFollower(0, None)
+	nRaft.randomElectionTimeout = nRaft.electionTimeout + rand.Intn(nRaft.electionTimeout)
 	// paramters read from storage
 	hardState, confState, err := c.Storage.InitialState()
 	if err != nil {
@@ -206,7 +210,7 @@ func newRaft(c *Config) *Raft {
 // checkSendElection check whether the node need to start election
 func (r *Raft) checkSendElection() {
 	r.electionElapsed++
-	if r.electionElapsed >= r.electionTimeout {
+	if r.electionElapsed >= r.randomElectionTimeout {
 		r.electionElapsed = 0
 		r.Step(pb.Message{MsgType: pb.MessageType_MsgHup})
 	}
@@ -244,6 +248,7 @@ func (r *Raft) becomeFollower(term uint64, lead uint64) {
 	r.Lead = lead
 	r.Term = term
 	r.Vote = None
+	log.Infof("node:%v, becomeFollower", r.id)
 }
 
 // becomeCandidate transform this peer's state to candidate
@@ -257,6 +262,7 @@ func (r *Raft) becomeCandidate() {
 	r.votes = make(map[uint64]bool)
 	// vote itself
 	r.votes[r.id] = true
+	log.Infof("node:%v, becomeCandidate", r.id)
 }
 
 // becomeLeader transform this peer's state to leader
@@ -321,6 +327,9 @@ func (r *Raft) candidateMsgHandle(m pb.Message) {
 	case pb.MessageType_MsgHup:
 		r.handleElection()
 	case pb.MessageType_MsgAppend:
+		if m.Term >= r.Term {
+			r.becomeFollower(m.Term, None)
+		}
 		r.handleAppendEntries(m)
 	case pb.MessageType_MsgAppendResponse:
 	case pb.MessageType_MsgBeat:
@@ -331,6 +340,7 @@ func (r *Raft) candidateMsgHandle(m pb.Message) {
 	case pb.MessageType_MsgRequestVote:
 		r.handleRequestVote(m)
 	case pb.MessageType_MsgRequestVoteResponse:
+		r.handleRequestVoteResponse(m)
 	case pb.MessageType_MsgSnapshot:
 	case pb.MessageType_MsgTimeoutNow:
 	case pb.MessageType_MsgTransferLeader:

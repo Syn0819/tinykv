@@ -131,8 +131,13 @@ func (l *RaftLog) LastIndex() uint64 {
 func (l *RaftLog) Term(i uint64) (uint64, error) {
 	// Your Code Here (2A).
 
-	if len(l.entries) > 0 {
+	if len(l.entries) > 0 && i >= l.firstIndex {
 		return l.entries[i-l.firstIndex].Term, nil
 	}
-	return 0, nil
+
+	term, err := l.storage.Term(i)
+	if err != nil {
+		panic(err)
+	}
+	return term, nil
 }

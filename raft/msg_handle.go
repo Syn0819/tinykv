@@ -1,6 +1,7 @@
 package raft
 
 import (
+	"math/rand"
 	"sort"
 
 	"github.com/pingcap-incubator/tinykv/log"
@@ -11,7 +12,7 @@ func (r *Raft) handleElection() {
 	r.becomeCandidate()
 
 	r.heartbeatElapsed = 0
-	// r.electionElapsed = r.electionTimeout + rand.Intn(r.electionTimeout)
+	r.randomElectionTimeout = r.electionTimeout + rand.Intn(r.electionTimeout)
 
 	// only one node, do not need election
 	if len(r.Prs) == 1 {
@@ -64,12 +65,39 @@ func (r *Raft) handleRequestVote(m pb.Message) {
 	// accpet!
 	r.Vote = m.From
 	r.electionElapsed = 0
+	r.randomElectionTimeout = r.electionTimeout + rand.Intn(r.electionTimeout)
 	r.sendRequestVoteResponse(m.From, false)
 
 }
 
+// handleRequestVoteResponse handle handleRequestVoteResponse RPC request
 func (r *Raft) handleRequestVoteResponse(m pb.Message) {
+	if r.Term < m.Term {
+		r.becomeFollower(m.Term, None)
+		return
+	}
 
+	r.votes[m.From] = !m.Reject
+	curVoteLens := len(r.votes)
+	peerLens := len(r.Prs)
+	quorum := peerLens / 2
+
+	if curVoteLens < quorum {
+		return
+	} else {
+		nums := 0
+		for _, v := range r.votes {
+			if v {
+				nums++
+			}
+		}
+
+		if nums > quorum {
+			r.becomeLeader()
+		} else if curVoteLens-nums > quorum {
+			r.becomeFollower(r.Term, None)
+		}
+	}
 }
 
 // handleAppendEntries handle AppendEntries RPC request
@@ -85,7 +113,7 @@ func (r *Raft) handleAppendEntries(m pb.Message) {
 	}
 
 	r.electionElapsed = 0
-
+	r.randomElectionTimeout = r.electionTimeout + rand.Intn(r.electionTimeout)
 	// check log
 	lastLogIndex := r.RaftLog.LastIndex()
 
@@ -159,6 +187,7 @@ func (r *Raft) handleHeartbeat(m pb.Message) {
 
 	r.Lead = m.From
 	r.electionElapsed = 0
+	r.randomElectionTimeout = r.electionTimeout + rand.Intn(r.electionTimeout)
 	r.sendHeartbeatResponse(m.From, true)
 }
 

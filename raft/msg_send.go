@@ -16,7 +16,7 @@ func (r *Raft) sendRequestVote(to, LastLogIndex, LastLogTerm uint64) {
 		MsgType: pb.MessageType_MsgRequestVote,
 	}
 	r.msgs = append(r.msgs, msg)
-	log.Infof("send RequestVote")
+	log.Infof("node:%v, send RequestVote, to:%v", r.id, to)
 }
 
 func (r *Raft) sendRequestVoteResponse(to uint64, reject bool) {
