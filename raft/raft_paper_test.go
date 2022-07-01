@@ -31,6 +31,7 @@ import (
 	"sort"
 	"testing"
 
+	"github.com/pingcap-incubator/tinykv/log"
 	pb "github.com/pingcap-incubator/tinykv/proto/pkg/eraftpb"
 )
 
@@ -546,6 +547,7 @@ func TestFollowerCommitEntry2AB(t *testing.T) {
 	}
 	for i, tt := range tests {
 		r := newTestRaft(1, []uint64{1, 2, 3}, 10, 1, NewMemoryStorage())
+		log.Infof("i:%v, id:%v, state:%v", i, r.id, r.State)
 		r.becomeFollower(1, 2)
 
 		r.Step(pb.Message{From: 2, To: 1, MsgType: pb.MessageType_MsgAppend, Term: 1, Entries: tt.ents, Commit: tt.commit})
@@ -728,6 +730,7 @@ func TestLeaderSyncFollowerLog2AB(t *testing.T) {
 		},
 	}
 	for i, tt := range tests {
+		log.Infof("------------%v--------------", i)
 		leadStorage := NewMemoryStorage()
 		leadStorage.Append(ents)
 		lead := newTestRaft(1, []uint64{1, 2, 3}, 10, 1, leadStorage)

@@ -54,12 +54,12 @@ const FORMAT_TIME_HOUR string = "2006010215"
 var _log *Logger = New()
 
 func init() {
-	/* logFile, err := os.OpenFile("/home/syn0819/syn/tinykv/mylog/raft.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+	logFile, err := os.OpenFile("/home/syn0819/syn/tinykv/mylog/raft.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
 	if err != nil {
 		fmt.Println("open log file failed erro: ", err)
 		Panic(err)
 	}
-	SetOutput(logFile) */
+	SetOutput(logFile)
 	SetFlags(Ldate | Ltime | Lshortfile)
 	//SetHighlighting(runtime.GOOS != "windows")
 	SetHighlighting(false)

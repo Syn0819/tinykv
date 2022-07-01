@@ -15,6 +15,7 @@
 package raft
 
 import (
+	"github.com/pingcap-incubator/tinykv/log"
 	pb "github.com/pingcap-incubator/tinykv/proto/pkg/eraftpb"
 )
 
@@ -65,10 +66,12 @@ func newLog(storage Storage) *RaftLog {
 	if err != nil {
 		panic(err)
 	}
+	log.Infof("newLog, firstLogIndex:%v", firstLogIndex)
 	lastLogIndex, err := storage.LastIndex()
 	if err != nil {
 		panic(err)
 	}
+	log.Infof("newLog, lastLogIndex:%v", lastLogIndex)
 	logEntreis, err := storage.Entries(firstLogIndex, lastLogIndex+1)
 	if err != nil {
 		panic(err)
@@ -104,6 +107,8 @@ func (l *RaftLog) unstableEntries() []pb.Entry {
 // nextEnts returns all the committed but not applied entries
 func (l *RaftLog) nextEnts() (ents []pb.Entry) {
 	// Your Code Here (2A).
+	log.Infof("nextEnts, len(l.entries):%v, l.applied:%v, l.committed:%v, l.firstIndex:%v",
+		len(l.entries), l.applied, l.committed, l.firstIndex)
 	if len(l.entries) > 0 {
 		return l.entries[l.applied-l.firstIndex+1 : l.committed-l.firstIndex+1]
 	}

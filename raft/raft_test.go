@@ -21,6 +21,7 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/pingcap-incubator/tinykv/log"
 	pb "github.com/pingcap-incubator/tinykv/proto/pkg/eraftpb"
 )
 
@@ -153,6 +154,8 @@ func TestLeaderElectionOverwriteNewerLogs2AB(t *testing.T) {
 	// Node 1 campaigns. The election fails because a quorum of nodes
 	// know about the election that already happened at term 2. Node 1's
 	// term is pushed ahead to 2.
+
+	log.Infof("TestLeaderElectionOverwriteNewerLogs2AB, From: 1, To: 1, MsgType: pb.MessageType_MsgHup")
 	n.send(pb.Message{From: 1, To: 1, MsgType: pb.MessageType_MsgHup})
 	sm1 := n.peers[1].(*Raft)
 	if sm1.State != StateFollower {
@@ -163,6 +166,7 @@ func TestLeaderElectionOverwriteNewerLogs2AB(t *testing.T) {
 	}
 
 	// Node 1 campaigns again with a higher term. This time it succeeds.
+	log.Infof("TestLeaderElectionOverwriteNewerLogs2AB, From: 1, To: 1, MsgType: pb.MessageType_MsgHup")
 	n.send(pb.Message{From: 1, To: 1, MsgType: pb.MessageType_MsgHup})
 	if sm1.State != StateLeader {
 		t.Errorf("state = %s, want StateLeader", sm1.State)
@@ -710,6 +714,7 @@ func TestAllServerStepdown2AB(t *testing.T) {
 	tterm := uint64(3)
 
 	for i, tt := range tests {
+		log.Infof("TestAllServerStepdown2AB, i:%v", i)
 		sm := newTestRaft(1, []uint64{1, 2, 3}, 10, 1, NewMemoryStorage())
 		switch tt.state {
 		case StateFollower:
@@ -722,6 +727,7 @@ func TestAllServerStepdown2AB(t *testing.T) {
 		}
 
 		for j, msgType := range tmsgTypes {
+			log.Infof("TestAllServerStepdown2AB, i:%v, j:%v", i, j)
 			sm.Step(pb.Message{From: 2, MsgType: msgType, Term: tterm, LogTerm: tterm})
 
 			if sm.State != tt.wstate {
@@ -1526,6 +1532,7 @@ func entsWithConfig(configFunc func(*Config), terms ...uint64) *Raft {
 	}
 	sm := newRaft(cfg)
 	sm.Term = terms[len(terms)-1]
+	//log.Infof("node:%v, entsWithConfig, ")
 	return sm
 }
 

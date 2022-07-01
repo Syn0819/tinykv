@@ -17,6 +17,7 @@ package raft
 import (
 	"errors"
 	"math/rand"
+	"sort"
 
 	"github.com/pingcap-incubator/tinykv/log"
 	pb "github.com/pingcap-incubator/tinykv/proto/pkg/eraftpb"
@@ -118,7 +119,7 @@ type Raft struct {
 	// the log
 	RaftLog *RaftLog
 
-	// log replication progress of each peers
+	// logc replication progress of eah peers
 	Prs map[uint64]*Progress
 
 	// this peer's role
@@ -196,7 +197,7 @@ func newRaft(c *Config) *Raft {
 		c.peers = confState.Nodes
 	}
 
-	lastLogIndex := nRaft.RaftLog.LastIndex()
+	lastLogIndex := nRaft.RaftLog.lastIndex
 	for _, peer := range c.peers {
 		if peer == nRaft.id {
 			nRaft.Prs[peer] = &Progress{Next: lastLogIndex + 1, Match: lastLogIndex}
@@ -293,15 +294,16 @@ func (r *Raft) becomeLeader() {
 		}
 	}
 
+	r.broadcastAppend()
 	if len(r.Prs) == 1 {
 		r.RaftLog.committed = r.Prs[r.id].Match
-	} else {
-		r.broadcastAppend()
 	}
 	log.Infof("node:%v, becomeLeader", r.id)
 }
 
 func (r *Raft) followerMsgHandle(m pb.Message) {
+	log.Infof("nodo:%v, followerMsgHandle, m.MsgType:%v, m.From:%v, m.To:%v, m.Term:%v, m.Commit:%v",
+		r.id, m.MsgType, m.From, m.To, m.Term, m.Commit)
 	switch m.MsgType {
 	case pb.MessageType_MsgHup:
 		r.handleElection()
@@ -323,12 +325,14 @@ func (r *Raft) followerMsgHandle(m pb.Message) {
 }
 
 func (r *Raft) candidateMsgHandle(m pb.Message) {
+	log.Infof("nodo:%v, candidateMsgHandle, m.MsgType:%v, m.From:%v, m.To:%v, m.Term:%v, m.Commit:%v",
+		r.id, m.MsgType, m.From, m.To, m.Term, m.Commit)
 	switch m.MsgType {
 	case pb.MessageType_MsgHup:
 		r.handleElection()
 	case pb.MessageType_MsgAppend:
 		if m.Term >= r.Term {
-			r.becomeFollower(m.Term, None)
+			r.becomeFollower(m.Term, r.Term)
 		}
 		r.handleAppendEntries(m)
 	case pb.MessageType_MsgAppendResponse:
@@ -348,21 +352,24 @@ func (r *Raft) candidateMsgHandle(m pb.Message) {
 }
 
 func (r *Raft) leaderMsgHandle(m pb.Message) {
+	log.Infof("nodo:%v, leaderMsgHandle, m.MsgType:%v, m.From:%v, m.To:%v, m.Term:%v, m.Commit:%v",
+		r.id, m.MsgType, m.From, m.To, m.Term, m.Commit)
 	switch m.MsgType {
 	case pb.MessageType_MsgHup:
 	case pb.MessageType_MsgAppend:
 		r.handleAppendEntries(m)
 	case pb.MessageType_MsgAppendResponse:
+		r.handleAppendEntriesResponse(m)
 	case pb.MessageType_MsgBeat:
 		r.handleBeat(m)
 	case pb.MessageType_MsgHeartbeat:
 	case pb.MessageType_MsgHeartbeatResponse:
+		r.sendAppend(m.From)
 	case pb.MessageType_MsgPropose:
 		r.handlePropose(m)
 	case pb.MessageType_MsgRequestVote:
 		r.handleRequestVote(m)
 	case pb.MessageType_MsgRequestVoteResponse:
-		r.handleRequestVoteResponse(m)
 	case pb.MessageType_MsgSnapshot:
 	case pb.MessageType_MsgTimeoutNow:
 	case pb.MessageType_MsgTransferLeader:
@@ -374,6 +381,7 @@ func (r *Raft) leaderMsgHandle(m pb.Message) {
 func (r *Raft) Step(m pb.Message) error {
 	// Your Code Here (2A).
 	// Rules for servers: All servers 2
+	log.Infof("node:%v, Step, r.State:%v, r.Term:%v, m.Term:%v", r.id, r.State, r.Term, m.Term)
 	if m.Term > r.Term {
 		r.becomeFollower(m.Term, None)
 	}
@@ -386,6 +394,29 @@ func (r *Raft) Step(m pb.Message) error {
 		r.leaderMsgHandle(m)
 	}
 	return nil
+}
+
+func (r *Raft) Commit() {
+	// check whether log needed to be commit, which quorum confirm
+	lens := len(r.Prs)
+	allMatchIndex := make(uint64Slice, lens)
+	for i, peer := range r.Prs {
+		allMatchIndex[i-1] = peer.Match
+	}
+
+	sort.Sort(allMatchIndex)
+	if allMatchIndex[(lens-1)/2] > r.RaftLog.committed {
+		// have new log which needed to commit
+		// section 5.4.2
+		logTerm, err := r.RaftLog.Term(allMatchIndex[(lens-1)/2])
+		if err != nil {
+			panic(err)
+		}
+		if logTerm == r.Term {
+			r.RaftLog.committed = allMatchIndex[(lens-1)/2]
+			r.broadcastAppend()
+		}
+	}
 }
 
 // addNode add a new node to raft group
