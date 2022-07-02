@@ -129,6 +129,13 @@ func isHardStateEqual(a, b pb.HardState) bool {
 	return a.Term == b.Term && a.Vote == b.Vote && a.Commit == b.Commit
 }
 
+func isSoftStateEqual(a, b *SoftState) bool {
+	if a.Lead != b.Lead || a.RaftState != b.RaftState {
+		return false
+	}
+	return true
+}
+
 func (r *Raft) broadcastAppend() {
 	for peer := range r.Prs {
 		log.Infof("node:%v, broadcastAppend, to:%v", r.id, peer)

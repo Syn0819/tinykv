@@ -14,7 +14,7 @@ import (
 	"os"
 )
 
-const COUT = false
+const COUT = true
 
 const (
 	Ldate         = log.Ldate
