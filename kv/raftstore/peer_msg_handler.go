@@ -9,7 +9,9 @@ import (
 	"github.com/pingcap-incubator/tinykv/kv/raftstore/runner"
 	"github.com/pingcap-incubator/tinykv/kv/raftstore/snap"
 	"github.com/pingcap-incubator/tinykv/kv/raftstore/util"
+	"github.com/pingcap-incubator/tinykv/kv/util/engine_util"
 	"github.com/pingcap-incubator/tinykv/log"
+	"github.com/pingcap-incubator/tinykv/proto/pkg/eraftpb"
 	"github.com/pingcap-incubator/tinykv/proto/pkg/metapb"
 	"github.com/pingcap-incubator/tinykv/proto/pkg/raft_cmdpb"
 	rspb "github.com/pingcap-incubator/tinykv/proto/pkg/raft_serverpb"
@@ -38,11 +40,49 @@ func newPeerMsgHandler(peer *peer, ctx *GlobalContext) *peerMsgHandler {
 	}
 }
 
+func (d *peerMsgHandler) handleRequest(entry *eraftpb.Entry, msg *raft_cmdpb.RaftCmdRequest, kvWB *engine_util.WriteBatch) *engine_util.WriteBatch {
+
+	return kvWB
+}
+
+func (d *peerMsgHandler) applyEntries(entry *eraftpb.Entry, kvWB *engine_util.WriteBatch) *engine_util.WriteBatch {
+	// unmarshal
+	msg := &raft_cmdpb.RaftCmdRequest{}
+	err := msg.Unmarshal(entry.Data)
+	if err != nil {
+		panic(err)
+	}
+	// real handle request in db
+	if len(msg.Requests) > 0 {
+		kvWB = d.handleRequest(entry, msg, kvWB)
+	}
+
+	return kvWB
+}
+
 func (d *peerMsgHandler) HandleRaftReady() {
 	if d.stopped {
 		return
 	}
 	// Your Code Here (2B).
+	// persisting log entries, applying committed entries
+	// sending raft messages to other peers though network
+	if d.RaftGroup.HasReady() {
+		ready := d.RaftGroup.Ready()
+
+		d.peerStorage.SaveReadyState(&ready)
+
+		d.Send(d.ctx.trans, ready.Messages)
+		if len(ready.CommittedEntries) > 0 {
+			// apply entries
+			kvWB := new(engine_util.WriteBatch)
+			for _, entry := range ready.CommittedEntries {
+				// unmarshal
+				kvWB = d.applyEntries(&entry, kvWB)
+			}
+		}
+	}
+
 }
 
 func (d *peerMsgHandler) HandleMsg(msg message.Msg) {
@@ -107,6 +147,46 @@ func (d *peerMsgHandler) preProposeRaftCommand(req *raft_cmdpb.RaftCmdRequest) e
 	return err
 }
 
+// handle admin request
+// not used in 2B
+func (d *peerMsgHandler) proposeAdminRequest(msg *raft_cmdpb.RaftCmdRequest, cb *message.Callback) {
+
+}
+
+// handle normal request
+func (d *peerMsgHandler) proposeRequest(msg *raft_cmdpb.RaftCmdRequest, cb *message.Callback) {
+	// one proposal per round
+	var key []byte
+	switch msg.Requests[0].CmdType {
+	case raft_cmdpb.CmdType_Delete:
+		key = msg.Requests[0].Delete.Key
+	case raft_cmdpb.CmdType_Get:
+		key = msg.Requests[0].Get.Key
+	case raft_cmdpb.CmdType_Put:
+		key = msg.Requests[0].Put.Key
+	}
+
+	if key != nil {
+		err := util.CheckKeyInRegion(key, d.Region())
+		if err != nil {
+			cb.Done(ErrResp(err))
+			return
+		}
+	}
+
+	data, err := msg.Marshal()
+	if err != nil {
+		panic(err)
+	}
+
+	d.proposals = append(d.proposals, &proposal{
+		index: d.nextProposalIndex(),
+		term:  d.Term(),
+		cb:    cb,
+	})
+	d.RaftGroup.Propose(data)
+}
+
 func (d *peerMsgHandler) proposeRaftCommand(msg *raft_cmdpb.RaftCmdRequest, cb *message.Callback) {
 	err := d.preProposeRaftCommand(msg)
 	if err != nil {
@@ -114,6 +194,12 @@ func (d *peerMsgHandler) proposeRaftCommand(msg *raft_cmdpb.RaftCmdRequest, cb *
 		return
 	}
 	// Your Code Here (2B).
+	if msg.Requests != nil {
+		d.proposeRequest(msg, cb)
+	} else {
+		d.proposeAdminRequest(msg, cb)
+	}
+
 }
 
 func (d *peerMsgHandler) onTick() {

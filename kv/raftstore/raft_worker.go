@@ -36,21 +36,26 @@ func (rw *raftWorker) run(closeCh <-chan struct{}, wg *sync.WaitGroup) {
 	for {
 		msgs = msgs[:0]
 		select {
+		//
 		case <-closeCh:
 			return
+		// 接收raft请求消息
 		case msg := <-rw.raftCh:
 			msgs = append(msgs, msg)
 		}
+		// 批次处理消息
 		pending := len(rw.raftCh)
 		for i := 0; i < pending; i++ {
 			msgs = append(msgs, <-rw.raftCh)
 		}
 		peerStateMap := make(map[uint64]*peerState)
 		for _, msg := range msgs {
+			// 暂时不清楚这个peerState干嘛用
 			peerState := rw.getPeerState(peerStateMap, msg.RegionID)
 			if peerState == nil {
 				continue
 			}
+			// 先处理msg，再通过HandleRaftReady处理msg触发的ready
 			newPeerMsgHandler(peerState.peer, rw.ctx).HandleMsg(msg)
 		}
 		for _, peerState := range peerStateMap {
