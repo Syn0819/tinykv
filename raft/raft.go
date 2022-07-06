@@ -220,8 +220,8 @@ func (r *Raft) checkSendElection() {
 // checkSendHeartbeat check whether the leader need to send heart beat to peers
 func (r *Raft) checkSendHeartbeat() {
 	r.heartbeatElapsed++
-	log.Infof("node:%v, checkSendHeartbeat, heartbeatElapsed:%v, heartbeatTimeout:%v",
-		r.id, r.heartbeatElapsed, r.heartbeatTimeout)
+	// log.Infof("node:%v, checkSendHeartbeat, heartbeatElapsed:%v, heartbeatTimeout:%v",
+	//	r.id, r.heartbeatElapsed, r.heartbeatTimeout)
 	if r.heartbeatElapsed >= r.heartbeatTimeout {
 		r.heartbeatElapsed = 0
 		r.Step(pb.Message{MsgType: pb.MessageType_MsgBeat})
@@ -302,8 +302,8 @@ func (r *Raft) becomeLeader() {
 }
 
 func (r *Raft) followerMsgHandle(m pb.Message) {
-	log.Infof("nodo:%v, followerMsgHandle, m.MsgType:%v, m.From:%v, m.To:%v, m.Term:%v, m.Commit:%v",
-		r.id, m.MsgType, m.From, m.To, m.Term, m.Commit)
+	// log.Infof("nodo:%v, followerMsgHandle, m.MsgType:%v, m.From:%v, m.To:%v, m.Term:%v, m.Commit:%v",
+	//	r.id, m.MsgType, m.From, m.To, m.Term, m.Commit)
 	switch m.MsgType {
 	case pb.MessageType_MsgHup:
 		r.handleElection()
@@ -325,8 +325,8 @@ func (r *Raft) followerMsgHandle(m pb.Message) {
 }
 
 func (r *Raft) candidateMsgHandle(m pb.Message) {
-	log.Infof("nodo:%v, candidateMsgHandle, m.MsgType:%v, m.From:%v, m.To:%v, m.Term:%v, m.Commit:%v",
-		r.id, m.MsgType, m.From, m.To, m.Term, m.Commit)
+	// log.Infof("nodo:%v, candidateMsgHandle, m.MsgType:%v, m.From:%v, m.To:%v, m.Term:%v, m.Commit:%v",
+	// 	r.id, m.MsgType, m.From, m.To, m.Term, m.Commit)
 	switch m.MsgType {
 	case pb.MessageType_MsgHup:
 		r.handleElection()
@@ -352,8 +352,8 @@ func (r *Raft) candidateMsgHandle(m pb.Message) {
 }
 
 func (r *Raft) leaderMsgHandle(m pb.Message) {
-	log.Infof("nodo:%v, leaderMsgHandle, m.MsgType:%v, m.From:%v, m.To:%v, m.Term:%v, m.Commit:%v",
-		r.id, m.MsgType, m.From, m.To, m.Term, m.Commit)
+	//log.Infof("nodo:%v, leaderMsgHandle, m.MsgType:%v, m.From:%v, m.To:%v, m.Term:%v, m.Commit:%v",
+	//	r.id, m.MsgType, m.From, m.To, m.Term, m.Commit)
 	switch m.MsgType {
 	case pb.MessageType_MsgHup:
 	case pb.MessageType_MsgAppend:
@@ -381,7 +381,7 @@ func (r *Raft) leaderMsgHandle(m pb.Message) {
 func (r *Raft) Step(m pb.Message) error {
 	// Your Code Here (2A).
 	// Rules for servers: All servers 2
-	log.Infof("node:%v, Step, r.State:%v, r.Term:%v, m.Term:%v", r.id, r.State, r.Term, m.Term)
+	//log.Infof("node:%v, Step, r.State:%v, r.Term:%v, m.Term:%v", r.id, r.State, r.Term, m.Term)
 	if m.Term > r.Term {
 		r.becomeFollower(m.Term, None)
 	}

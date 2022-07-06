@@ -48,6 +48,8 @@ func (wb *WriteBatch) DeleteCF(cf string, key []byte) {
 	wb.size += len(key)
 }
 
+// save state to badger
+// use key to distinguish state
 func (wb *WriteBatch) SetMeta(key []byte, msg proto.Message) error {
 	val, err := proto.Marshal(msg)
 	if err != nil {

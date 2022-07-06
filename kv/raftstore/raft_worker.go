@@ -55,7 +55,7 @@ func (rw *raftWorker) run(closeCh <-chan struct{}, wg *sync.WaitGroup) {
 			if peerState == nil {
 				continue
 			}
-			// 先处理msg，再通过HandleRaftReady处理msg触发的ready
+			// 先将msg转发至raft模块，再通过HandleRaftReady处理msg触发的ready
 			newPeerMsgHandler(peerState.peer, rw.ctx).HandleMsg(msg)
 		}
 		for _, peerState := range peerStateMap {

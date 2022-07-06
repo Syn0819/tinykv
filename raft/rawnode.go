@@ -155,6 +155,7 @@ func (rn *RawNode) Step(m pb.Message) error {
 		return ErrStepLocalMsg
 	}
 	if pr := rn.Raft.Prs[m.From]; pr != nil || !IsResponseMsg(m.MsgType) {
+		log.Infof("node:%v, Term:%v, msgType:%v, From:%v, To:%v", rn.Raft.id, rn.Raft.Term, m.MsgType, m.From, m.To)
 		return rn.Raft.Step(m)
 	}
 	return ErrStepPeerNotFound

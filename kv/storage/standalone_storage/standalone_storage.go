@@ -21,14 +21,10 @@ func NewStandAloneStorage(conf *config.Config) *StandAloneStorage {
 	if conf.Raft {
 		path := conf.DBPath + "/raft"
 		DB := engine_util.CreateDB(path, true)
-
-		LogPrint("[NewStandAloneStorage] Raft: %v", conf.Raft)
 		return &StandAloneStorage{db: DB}
 	} else {
 		path := conf.DBPath + "/kv"
 		DB := engine_util.CreateDB(path, false)
-
-		LogPrint("[NewStandAloneStorage] Raft: %v", conf.Raft)
 		return &StandAloneStorage{db: DB}
 	}
 }

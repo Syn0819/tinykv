@@ -4,7 +4,6 @@ import (
 	"math/rand"
 	"sort"
 
-	"github.com/pingcap-incubator/tinykv/log"
 	pb "github.com/pingcap-incubator/tinykv/proto/pkg/eraftpb"
 )
 
@@ -49,8 +48,8 @@ func (r *Raft) handleRequestVote(m pb.Message) {
 
 	lastLogIndex := r.RaftLog.LastIndex()
 	lastLogTerm, err := r.RaftLog.Term(lastLogIndex)
-	log.Infof("node:%v, handleRequestVote, lastLogIndex:%v, lastLogTerm:%v, m.From:%v, m.Term:%v, m.Index:%v, m.Commit:%v",
-		r.id, lastLogIndex, lastLogTerm, m.From, m.Term, m.Index, m.Commit)
+	//log.Infof("node:%v, handleRequestVote, lastLogIndex:%v, lastLogTerm:%v, m.From:%v, m.Term:%v, m.Index:%v, m.Commit:%v",
+	//	r.id, lastLogIndex, lastLogTerm, m.From, m.Term, m.Index, m.Commit)
 	if err != nil {
 		panic(err)
 	}
@@ -106,15 +105,15 @@ func (r *Raft) handleRequestVoteResponse(m pb.Message) {
 func (r *Raft) handleAppendEntries(m pb.Message) {
 	// Your Code Here (2A).
 	// case 1
-	for i, entry := range r.RaftLog.entries {
-		log.Infof("node:%v, handleAppendEntries check r.RaftLog.entries, i:%v, Term:%v, Index:%v", r.id, i, entry.Term, entry.Index)
-	}
+	//for i, entry := range r.RaftLog.entries {
+	//	log.Infof("node:%v, handleAppendEntries check r.RaftLog.entries, i:%v, Term:%v, Index:%v", r.id, i, entry.Term, entry.Index)
+	//}
 
-	for i, entry := range m.Entries {
-		log.Infof("node:%v, check m.Entries, i:%v, Term:%v, Index:%v", r.id, i, entry.Term, entry.Index)
-	}
+	//for i, entry := range m.Entries {
+	//	log.Infof("node:%v, check m.Entries, i:%v, Term:%v, Index:%v", r.id, i, entry.Term, entry.Index)
+	//}
 
-	log.Infof("node:%v, handleAppendEntries1, m.Term:%v, r.Term:%v", r.id, m.Term, r.Term)
+	//log.Infof("node:%v, handleAppendEntries1, m.Term:%v, r.Term:%v", r.id, m.Term, r.Term)
 	if m.Term != None && m.Term < r.Term {
 		r.sendAppendEntriesResponse(m.From, true, None, None)
 		return
@@ -129,7 +128,7 @@ func (r *Raft) handleAppendEntries(m pb.Message) {
 	r.randomElectionTimeout = r.electionTimeout + rand.Intn(r.electionTimeout)
 	// check log
 	lastLogIndex := r.RaftLog.LastIndex()
-	log.Infof("node:%v, handleAppendEntries2, firstIndex:%v, lastLogIndex:%v, m.Index:%v", r.id, r.RaftLog.firstIndex, lastLogIndex, m.Index)
+	//log.Infof("node:%v, handleAppendEntries2, firstIndex:%v, lastLogIndex:%v, m.Index:%v", r.id, r.RaftLog.firstIndex, lastLogIndex, m.Index)
 
 	// case 2:
 	// first.......last
@@ -145,7 +144,7 @@ func (r *Raft) handleAppendEntries(m pb.Message) {
 	// |.......index......|
 	if r.RaftLog.firstIndex <= m.Index {
 		logTerm, err := r.RaftLog.Term(m.Index)
-		log.Infof("node:%v, handleAppendEntries3, logTerm:%v, m.Term:%v", r.id, logTerm, m.Term)
+		//	log.Infof("node:%v, handleAppendEntries3, logTerm:%v, m.Term:%v", r.id, logTerm, m.Term)
 
 		if err != nil {
 			panic(err)
@@ -153,15 +152,15 @@ func (r *Raft) handleAppendEntries(m pb.Message) {
 		// term not match
 		if logTerm != m.LogTerm {
 			// sreach the match log by binary sreach
-			log.Infof("node:%v, handleAppendEntries term not match, m.Index:%v, r.RaftLog.firstIndex:%v", r.id, m.Index, r.RaftLog.firstIndex)
+			//		log.Infof("node:%v, handleAppendEntries term not match, m.Index:%v, r.RaftLog.firstIndex:%v", r.id, m.Index, r.RaftLog.firstIndex)
 			MatchLogIndex := sort.Search(
 				int(m.Index-r.RaftLog.firstIndex+1),
 				func(i int) bool {
 					return r.RaftLog.entries[i].Term == logTerm
 				})
 
-			log.Infof("node:%v, handleAppendEntries, MatchLogIndex:%v, r.RaftLog.entries[MatchLogIndex].Term:%v, logTerm:%v",
-				r.id, MatchLogIndex, r.RaftLog.entries[MatchLogIndex].Term, logTerm)
+			//		log.Infof("node:%v, handleAppendEntries, MatchLogIndex:%v, r.RaftLog.entries[MatchLogIndex].Term:%v, logTerm:%v",
+			//			r.id, MatchLogIndex, r.RaftLog.entries[MatchLogIndex].Term, logTerm)
 			r.sendAppendEntriesResponse(m.From, true, uint64(MatchLogIndex+int(r.RaftLog.firstIndex)), logTerm)
 			return
 		}
@@ -170,8 +169,8 @@ func (r *Raft) handleAppendEntries(m pb.Message) {
 	// term match
 	// delete the entries from [index+1:last]
 	for i, entry := range m.Entries {
-		log.Infof("node:%v, handleAppendEntries4, entry.Index:%v, r.RaftLog.firstIndex:%v, lastLogIndex:%v",
-			r.id, entry.Index, r.RaftLog.firstIndex, lastLogIndex)
+		//	log.Infof("node:%v, handleAppendEntries4, entry.Index:%v, r.RaftLog.firstIndex:%v, lastLogIndex:%v",
+		//		r.id, entry.Index, r.RaftLog.firstIndex, lastLogIndex)
 		if entry.Index < r.RaftLog.firstIndex {
 			continue
 		}
@@ -181,8 +180,8 @@ func (r *Raft) handleAppendEntries(m pb.Message) {
 			if err != nil {
 				panic(err)
 			}
-			log.Infof("node:%v, handleAppendEntries5, logTerm:%v, entry.Term:%v",
-				r.id, logTerm, entry.Term)
+			//		log.Infof("node:%v, handleAppendEntries5, logTerm:%v, entry.Term:%v",
+			//			r.id, logTerm, entry.Term)
 
 			if logTerm != entry.Term {
 				idx := entry.Index - r.RaftLog.firstIndex
@@ -248,7 +247,7 @@ func (r *Raft) handleSnapshot(m pb.Message) {
 
 func (r *Raft) handleBeat(m pb.Message) {
 	for peer := range r.Prs {
-		log.Infof("node:%v, handleBeat, sendHeartbeat, to:%v", r.id, peer)
+		// log.Infof("node:%v, handleBeat, sendHeartbeat, to:%v", r.id, peer)
 		if peer == r.id {
 			continue
 		} else {
@@ -262,7 +261,7 @@ func (r *Raft) handleAppendEntriesResponse(m pb.Message) {
 	if m.Term != None && m.Term < r.Term {
 		return
 	}
-	log.Infof("node:%v, handleAppendEntriesResponse, m.Reject:%v", r.id, m.Reject)
+	// log.Infof("node:%v, handleAppendEntriesResponse, m.Reject:%v", r.id, m.Reject)
 	if m.Reject {
 		// append entries was rejected
 
@@ -278,25 +277,25 @@ func (r *Raft) handleAppendEntriesResponse(m pb.Message) {
 			return
 		} else {
 			// case 3
-			log.Infof("node:%v, handleAppendEntriesResponse case 3, m.Index:%v", r.id, m.Index)
+			//log.Infof("node:%v, handleAppendEntriesResponse case 3, m.Index:%v", r.id, m.Index)
 			logTerm := m.LogTerm
 			SearchIndex := sort.Search(len(r.RaftLog.entries),
 				func(i int) bool { return r.RaftLog.entries[i].Term > logTerm })
-			log.Infof("node:%v, handleAppendEntriesResponse case 3, SearchIndex:%v", r.id, SearchIndex)
+			//log.Infof("node:%v, handleAppendEntriesResponse case 3, SearchIndex:%v", r.id, SearchIndex)
 
 			index := m.Index
-			log.Infof("node:%v, handleAppendEntriesResponse case 3, r.RaftLog.entries[SearchIndex-1].Term:%v, logTerm:%v",
-				r.id, r.RaftLog.entries[SearchIndex-1].Term, logTerm)
+			//log.Infof("node:%v, handleAppendEntriesResponse case 3, r.RaftLog.entries[SearchIndex-1].Term:%v, logTerm:%v",
+			//	r.id, r.RaftLog.entries[SearchIndex-1].Term, logTerm)
 			if SearchIndex > 0 && r.RaftLog.entries[SearchIndex].Term == logTerm {
 				index = uint64(SearchIndex) + r.RaftLog.firstIndex
 			}
-			log.Infof("node:%v, handleAppendEntriesResponse case 3, index:%v", r.id, index)
+			//log.Infof("node:%v, handleAppendEntriesResponse case 3, index:%v", r.id, index)
 			r.Prs[m.From].Next = index
 			r.sendAppend(m.From)
 			return
 		}
 	} else {
-		log.Infof("node:%v, handleAppendEntriesResponse, m.Index:%v, r.Prs[m.From].Match:%v", r.id, m.Index, r.Prs[m.From].Match)
+		//log.Infof("node:%v, handleAppendEntriesResponse, m.Index:%v, r.Prs[m.From].Match:%v", r.id, m.Index, r.Prs[m.From].Match)
 		if m.Index > r.Prs[m.From].Match {
 			r.Prs[m.From].Next = m.Index + 1
 			r.Prs[m.From].Match = m.Index

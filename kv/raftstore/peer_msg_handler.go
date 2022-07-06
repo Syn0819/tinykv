@@ -6,6 +6,7 @@ import (
 
 	"github.com/Connor1996/badger/y"
 	"github.com/pingcap-incubator/tinykv/kv/raftstore/message"
+	"github.com/pingcap-incubator/tinykv/kv/raftstore/meta"
 	"github.com/pingcap-incubator/tinykv/kv/raftstore/runner"
 	"github.com/pingcap-incubator/tinykv/kv/raftstore/snap"
 	"github.com/pingcap-incubator/tinykv/kv/raftstore/util"
@@ -40,8 +41,71 @@ func newPeerMsgHandler(peer *peer, ctx *GlobalContext) *peerMsgHandler {
 	}
 }
 
-func (d *peerMsgHandler) handleRequest(entry *eraftpb.Entry, msg *raft_cmdpb.RaftCmdRequest, kvWB *engine_util.WriteBatch) *engine_util.WriteBatch {
+// get request key from normal request
+func (d *peerMsgHandler) getRequestKey(req *raft_cmdpb.Request) []byte {
+	switch req.CmdType {
+	case raft_cmdpb.CmdType_Delete:
+		return req.Delete.Key
+	case raft_cmdpb.CmdType_Get:
+		return req.Get.Key
+	case raft_cmdpb.CmdType_Put:
+		return req.Put.Key
+	case raft_cmdpb.CmdType_Snap:
+	}
+	var Reqkey []byte
+	return Reqkey
+}
 
+func (d *peerMsgHandler) handleAdminRequest(entry *eraftpb.Entry, msg *raft_cmdpb.RaftCmdRequest, kvWB *engine_util.WriteBatch) {
+
+}
+
+//
+func (d *peerMsgHandler) handleRequest(entry *eraftpb.Entry, msg *raft_cmdpb.RaftCmdRequest, kvWB *engine_util.WriteBatch) *engine_util.WriteBatch {
+	req := msg.Requests[0]
+
+	// real handle request into kv
+
+	// 读操作不需要前后缀
+	switch req.CmdType {
+	case raft_cmdpb.CmdType_Delete:
+		kvWB.DeleteCF(req.Delete.Cf, req.Delete.Key)
+	case raft_cmdpb.CmdType_Put:
+		kvWB.SetCF(req.Put.Cf, req.Put.Key, req.Put.Value)
+	}
+
+	if len(d.proposals) > 0 {
+		p := d.proposals[0]
+		if p.index == entry.Index {
+			if p.term == entry.Term {
+				resq := &raft_cmdpb.RaftCmdResponse{Header: &raft_cmdpb.RaftResponseHeader{}}
+				switch req.CmdType {
+				// delete 和 put 不需要反馈信息
+				case raft_cmdpb.CmdType_Delete:
+					resq.Responses = []*raft_cmdpb.Response{{CmdType: raft_cmdpb.CmdType_Delete, Delete: &raft_cmdpb.DeleteResponse{}}}
+				case raft_cmdpb.CmdType_Get:
+					// get 需要返回value
+					// 当有读操作时，一次性写入前面所有的log
+					d.peerStorage.applyState.AppliedIndex = entry.Index
+					kvWB.SetMeta(meta.ApplyStateKey(d.regionId), d.peerStorage.applyState)
+					kvWB.WriteToDB(d.peerStorage.Engines.Kv)
+					value, err := engine_util.GetCF(d.peerStorage.Engines.Kv, req.Get.Cf, req.Get.Key)
+					if err != nil {
+						panic(err)
+					}
+					resq.Responses = []*raft_cmdpb.Response{{CmdType: raft_cmdpb.CmdType_Get, Get: &raft_cmdpb.GetResponse{Value: value}}}
+					kvWB = new(engine_util.WriteBatch)
+				case raft_cmdpb.CmdType_Put:
+					resq.Responses = []*raft_cmdpb.Response{{CmdType: raft_cmdpb.CmdType_Put, Put: &raft_cmdpb.PutResponse{}}}
+				case raft_cmdpb.CmdType_Snap:
+				}
+				p.cb.Done(resq)
+			}
+		} else {
+			NotifyStaleReq(entry.Term, p.cb)
+		}
+		d.proposals = d.proposals[1:]
+	}
 	return kvWB
 }
 
@@ -54,7 +118,12 @@ func (d *peerMsgHandler) applyEntries(entry *eraftpb.Entry, kvWB *engine_util.Wr
 	}
 	// real handle request in db
 	if len(msg.Requests) > 0 {
-		kvWB = d.handleRequest(entry, msg, kvWB)
+		return d.handleRequest(entry, msg, kvWB)
+	}
+
+	if msg.AdminRequest != nil {
+		d.handleAdminRequest(entry, msg, kvWB)
+		return kvWB
 	}
 
 	return kvWB
@@ -74,15 +143,29 @@ func (d *peerMsgHandler) HandleRaftReady() {
 
 		d.Send(d.ctx.trans, ready.Messages)
 		if len(ready.CommittedEntries) > 0 {
+			oldProposals := d.proposals
 			// apply entries
 			kvWB := new(engine_util.WriteBatch)
 			for _, entry := range ready.CommittedEntries {
 				// unmarshal
 				kvWB = d.applyEntries(&entry, kvWB)
+				if d.stopped {
+					return
+				}
+			}
+			// finish apply, update state
+			d.peerStorage.applyState.AppliedIndex = ready.CommittedEntries[len(ready.CommittedEntries)-1].Index
+			kvWB.SetMeta(meta.ApplyStateKey(d.regionId), d.peerStorage.applyState)
+			kvWB.WriteToDB(d.peerStorage.Engines.Kv)
+
+			if len(d.proposals) < len(oldProposals) {
+				proposals := make([]*proposal, len(d.proposals))
+				copy(proposals, d.proposals)
+				d.proposals = proposals
 			}
 		}
+		d.RaftGroup.Advance(ready)
 	}
-
 }
 
 func (d *peerMsgHandler) HandleMsg(msg message.Msg) {
@@ -148,9 +231,14 @@ func (d *peerMsgHandler) preProposeRaftCommand(req *raft_cmdpb.RaftCmdRequest) e
 }
 
 // handle admin request
-// not used in 2B
 func (d *peerMsgHandler) proposeAdminRequest(msg *raft_cmdpb.RaftCmdRequest, cb *message.Callback) {
-
+	req := msg.AdminRequest
+	switch req.CmdType {
+	case raft_cmdpb.AdminCmdType_ChangePeer:
+	case raft_cmdpb.AdminCmdType_CompactLog:
+	case raft_cmdpb.AdminCmdType_TransferLeader:
+	case raft_cmdpb.AdminCmdType_Split:
+	}
 }
 
 // handle normal request
@@ -179,6 +267,7 @@ func (d *peerMsgHandler) proposeRequest(msg *raft_cmdpb.RaftCmdRequest, cb *mess
 		panic(err)
 	}
 
+	// 每一次propose对应一个唯一的[index term]二元组
 	d.proposals = append(d.proposals, &proposal{
 		index: d.nextProposalIndex(),
 		term:  d.Term(),
@@ -187,6 +276,7 @@ func (d *peerMsgHandler) proposeRequest(msg *raft_cmdpb.RaftCmdRequest, cb *mess
 	d.RaftGroup.Propose(data)
 }
 
+// 处理raft command
 func (d *peerMsgHandler) proposeRaftCommand(msg *raft_cmdpb.RaftCmdRequest, cb *message.Callback) {
 	err := d.preProposeRaftCommand(msg)
 	if err != nil {
