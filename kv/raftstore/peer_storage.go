@@ -332,10 +332,6 @@ func (ps *PeerStorage) Append(entries []eraftpb.Entry, raftWB *engine_util.Write
 		raftWB.SetMeta(meta.RaftLogKey(regionID, entry.Index), &entry)
 	}
 
-	// update ps.raftState
-	ps.raftState.LastIndex = eIndex
-	ps.raftState.LastTerm = entries[len(entries)-1].Term
-
 	// delete log entries that will never be committed
 	redundantIndex, err := ps.LastIndex()
 	if err != nil {
@@ -347,6 +343,10 @@ func (ps *PeerStorage) Append(entries []eraftpb.Entry, raftWB *engine_util.Write
 			raftWB.DeleteMeta(meta.RaftLogKey(regionID, i))
 		}
 	}
+
+	// update ps.raftState
+	ps.raftState.LastIndex = eIndex
+	ps.raftState.LastTerm = entries[len(entries)-1].Term
 	return nil
 }
 

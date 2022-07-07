@@ -72,37 +72,46 @@ func (d *peerMsgHandler) handleRequest(entry *eraftpb.Entry, msg *raft_cmdpb.Raf
 		kvWB.DeleteCF(req.Delete.Cf, req.Delete.Key)
 	case raft_cmdpb.CmdType_Put:
 		kvWB.SetCF(req.Put.Cf, req.Put.Key, req.Put.Value)
+	case raft_cmdpb.CmdType_Get:
+	case raft_cmdpb.CmdType_Snap:
 	}
 
 	if len(d.proposals) > 0 {
 		p := d.proposals[0]
-		if p.index == entry.Index {
+		if p.index != entry.Index {
+			NotifyStaleReq(entry.Term, p.cb)
+		} else {
 			if p.term == entry.Term {
-				resq := &raft_cmdpb.RaftCmdResponse{Header: &raft_cmdpb.RaftResponseHeader{}}
+				resp := &raft_cmdpb.RaftCmdResponse{Header: &raft_cmdpb.RaftResponseHeader{}}
 				switch req.CmdType {
-				// delete 和 put 不需要反馈信息
-				case raft_cmdpb.CmdType_Delete:
-					resq.Responses = []*raft_cmdpb.Response{{CmdType: raft_cmdpb.CmdType_Delete, Delete: &raft_cmdpb.DeleteResponse{}}}
 				case raft_cmdpb.CmdType_Get:
-					// get 需要返回value
-					// 当有读操作时，一次性写入前面所有的log
 					d.peerStorage.applyState.AppliedIndex = entry.Index
 					kvWB.SetMeta(meta.ApplyStateKey(d.regionId), d.peerStorage.applyState)
 					kvWB.WriteToDB(d.peerStorage.Engines.Kv)
 					value, err := engine_util.GetCF(d.peerStorage.Engines.Kv, req.Get.Cf, req.Get.Key)
 					if err != nil {
-						panic(err)
+						value = nil
 					}
-					resq.Responses = []*raft_cmdpb.Response{{CmdType: raft_cmdpb.CmdType_Get, Get: &raft_cmdpb.GetResponse{Value: value}}}
+					resp.Responses = []*raft_cmdpb.Response{{CmdType: raft_cmdpb.CmdType_Get, Get: &raft_cmdpb.GetResponse{Value: value}}}
 					kvWB = new(engine_util.WriteBatch)
 				case raft_cmdpb.CmdType_Put:
-					resq.Responses = []*raft_cmdpb.Response{{CmdType: raft_cmdpb.CmdType_Put, Put: &raft_cmdpb.PutResponse{}}}
+					resp.Responses = []*raft_cmdpb.Response{{CmdType: raft_cmdpb.CmdType_Put, Put: &raft_cmdpb.PutResponse{}}}
+				case raft_cmdpb.CmdType_Delete:
+					resp.Responses = []*raft_cmdpb.Response{{CmdType: raft_cmdpb.CmdType_Delete, Delete: &raft_cmdpb.DeleteResponse{}}}
 				case raft_cmdpb.CmdType_Snap:
+					if msg.Header.RegionEpoch.Version != d.Region().RegionEpoch.Version {
+						p.cb.Done(ErrResp(&util.ErrEpochNotMatch{}))
+						return kvWB
+					}
+					d.peerStorage.applyState.AppliedIndex = entry.Index
+					kvWB.SetMeta(meta.ApplyStateKey(d.regionId), d.peerStorage.applyState)
+					kvWB.WriteToDB(d.peerStorage.Engines.Kv)
+					resp.Responses = []*raft_cmdpb.Response{{CmdType: raft_cmdpb.CmdType_Snap, Snap: &raft_cmdpb.SnapResponse{Region: d.Region()}}}
+					p.cb.Txn = d.peerStorage.Engines.Kv.NewTransaction(false)
+					kvWB = new(engine_util.WriteBatch)
 				}
-				p.cb.Done(resq)
+				p.cb.Done(resp)
 			}
-		} else {
-			NotifyStaleReq(entry.Term, p.cb)
 		}
 		d.proposals = d.proposals[1:]
 	}
@@ -121,10 +130,10 @@ func (d *peerMsgHandler) applyEntries(entry *eraftpb.Entry, kvWB *engine_util.Wr
 		return d.handleRequest(entry, msg, kvWB)
 	}
 
-	if msg.AdminRequest != nil {
+	/* if msg.AdminRequest != nil {
 		d.handleAdminRequest(entry, msg, kvWB)
 		return kvWB
-	}
+	} */
 
 	return kvWB
 }
