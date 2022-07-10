@@ -243,6 +243,34 @@ func (r *Raft) handlePropose(m pb.Message) {
 // handleSnapshot handle Snapshot RPC request
 func (r *Raft) handleSnapshot(m pb.Message) {
 	// Your Code Here (2C).
+	// get the information in the snapshot and apply state
+	//
+	if m.Term > r.Term {
+		r.becomeFollower(m.Term, m.From)
+	}
+
+	meta := m.Snapshot.Metadata
+
+	// the node log entries newer than snapshot
+	if meta.Index <= r.RaftLog.committed {
+		r.sendAppendEntriesResponse(m.From, false, r.RaftLog.committed, None)
+		return
+	}
+
+	// update state
+	r.RaftLog.firstIndex = meta.Index + 1
+	r.RaftLog.applied = meta.Index
+	r.RaftLog.committed = meta.Index
+	r.RaftLog.stabled = meta.Index
+	r.RaftLog.entries = nil
+
+	r.Prs = map[uint64]*Progress{}
+	for _, peer := range meta.ConfState.Nodes {
+		r.Prs[peer] = &Progress{}
+	}
+
+	r.RaftLog.pendingSnapshot = m.Snapshot
+	r.sendAppendEntriesResponse(m.From, false, r.RaftLog.LastIndex(), None)
 }
 
 func (r *Raft) handleBeat(m pb.Message) {

@@ -78,9 +78,7 @@ func (d *peerMsgHandler) handleRequest(entry *eraftpb.Entry, msg *raft_cmdpb.Raf
 
 	if len(d.proposals) > 0 {
 		p := d.proposals[0]
-		if p.index != entry.Index {
-			NotifyStaleReq(entry.Term, p.cb)
-		} else {
+		if p.index == entry.Index {
 			if p.term == entry.Term {
 				resp := &raft_cmdpb.RaftCmdResponse{Header: &raft_cmdpb.RaftResponseHeader{}}
 				switch req.CmdType {
@@ -112,6 +110,8 @@ func (d *peerMsgHandler) handleRequest(entry *eraftpb.Entry, msg *raft_cmdpb.Raf
 				}
 				p.cb.Done(resp)
 			}
+		} else {
+			NotifyStaleReq(entry.Term, p.cb)
 		}
 		d.proposals = d.proposals[1:]
 	}
@@ -130,10 +130,10 @@ func (d *peerMsgHandler) applyEntries(entry *eraftpb.Entry, kvWB *engine_util.Wr
 		return d.handleRequest(entry, msg, kvWB)
 	}
 
-	/* if msg.AdminRequest != nil {
+	if msg.AdminRequest != nil {
 		d.handleAdminRequest(entry, msg, kvWB)
 		return kvWB
-	} */
+	}
 
 	return kvWB
 }

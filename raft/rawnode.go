@@ -161,43 +161,29 @@ func (rn *RawNode) Step(m pb.Message) error {
 	return ErrStepPeerNotFound
 }
 
-// Ready returns the current point-in-time state of this RawNode.
 func (rn *RawNode) Ready() Ready {
 	// Your Code Here (2A).
-	// refer to the doc
-	// 1. check msg
-	// 2. check log
-	// 3. check hard state
-	// 4. check soft state
-	// 5. check apply log
-	ready := Ready{
-		Messages:         rn.Raft.msgs,
-		Entries:          rn.Raft.RaftLog.unstableEntries(),
-		CommittedEntries: rn.Raft.RaftLog.nextEnts(),
+	r := rn.Raft
+	rd := Ready{
+		Entries:          r.RaftLog.unstableEntries(),
+		CommittedEntries: r.RaftLog.nextEnts(),
+		Messages:         r.msgs,
 	}
-
+	softSt := r.softState()
+	hardSt := r.hardState()
+	if !softSt.equal(rn.softst) {
+		rn.softst = softSt
+		rd.SoftState = softSt
+	}
+	if !isHardStateEqual(hardSt, rn.hardst) {
+		rd.HardState = hardSt
+	}
 	rn.Raft.msgs = make([]pb.Message, 0)
-
-	hs := pb.HardState{
-		Term:   rn.Raft.Term,
-		Vote:   rn.Raft.Vote,
-		Commit: rn.Raft.RaftLog.committed,
+	if !IsEmptySnap(r.RaftLog.pendingSnapshot) {
+		rd.Snapshot = *r.RaftLog.pendingSnapshot
+		r.RaftLog.pendingSnapshot = nil
 	}
-	if !isHardStateEqual(hs, rn.hardst) {
-		rn.hardst = hs
-	}
-
-	ss := SoftState{
-		Lead:      rn.Raft.Lead,
-		RaftState: rn.Raft.State,
-	}
-
-	if !isSoftStateEqual(&ss, rn.softst) {
-		rn.softst = &ss
-		ready.SoftState = &ss
-	}
-
-	return ready
+	return rd
 }
 
 // HasReady called when RawNode user need to check if any Ready pending.
@@ -239,6 +225,7 @@ func (rn *RawNode) Advance(rd Ready) {
 	if len(rd.CommittedEntries) > 0 {
 		rn.Raft.RaftLog.applied = rd.CommittedEntries[len(rd.CommittedEntries)-1].Index
 	}
+	rn.Raft.RaftLog.maybeCompact()
 }
 
 // GetProgress return the Progress of this node and its peers, if this
@@ -256,4 +243,20 @@ func (rn *RawNode) GetProgress() map[uint64]Progress {
 // TransferLeader tries to transfer leadership to the given transferee.
 func (rn *RawNode) TransferLeader(transferee uint64) {
 	_ = rn.Raft.Step(pb.Message{MsgType: pb.MessageType_MsgTransferLeader, From: transferee})
+}
+
+func (r *Raft) softState() *SoftState {
+	return &SoftState{Lead: r.Lead, RaftState: r.State}
+}
+
+func (r *Raft) hardState() pb.HardState {
+	return pb.HardState{
+		Term:   r.Term,
+		Vote:   r.Vote,
+		Commit: r.RaftLog.committed,
+	}
+}
+
+func (a *SoftState) equal(b *SoftState) bool {
+	return a.Lead == b.Lead && a.RaftState == b.RaftState
 }

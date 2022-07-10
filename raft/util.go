@@ -130,10 +130,7 @@ func isHardStateEqual(a, b pb.HardState) bool {
 }
 
 func isSoftStateEqual(a, b *SoftState) bool {
-	if a.Lead != b.Lead || a.RaftState != b.RaftState {
-		return false
-	}
-	return true
+	return a.Lead == b.Lead && a.RaftState == b.RaftState
 }
 
 func (r *Raft) broadcastAppend() {
