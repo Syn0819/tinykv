@@ -1,6 +1,7 @@
 package raft
 
 import (
+	"github.com/pingcap-incubator/tinykv/log"
 	pb "github.com/pingcap-incubator/tinykv/proto/pkg/eraftpb"
 )
 
@@ -53,10 +54,14 @@ func (r *Raft) sendAppend(to uint64) bool {
 	// Your Code Here (2A).
 	// synchronize the log entries by the log record in leader
 	recordLogIndex := r.Prs[to].Next - 1
-	//log.Infof("node:%v, sendAppend, recordLogIndex:%v",
-	//	r.id, recordLogIndex)
+	log.Infof("node:%v, sendAppend, to:%v, recordLogIndex:%v",
+		r.id, to, recordLogIndex)
 	recordLogTerm, err := r.RaftLog.Term(recordLogIndex)
 	if err != nil {
+		if err == ErrCompacted {
+			r.sendSnapshot(to)
+			return false
+		}
 		panic(err)
 	}
 
@@ -77,8 +82,8 @@ func (r *Raft) sendAppend(to uint64) bool {
 		Commit:  r.RaftLog.committed,
 	}
 	r.msgs = append(r.msgs, msg)
-	//log.Infof("node:%v, sendAppend, to:%v, From:%v, Term:%v, LogTerm:%v, Index:%v, Commit:%v",
-	//	r.id, to, r.id, r.Term, recordLogTerm, recordLogIndex, r.RaftLog.committed)
+	log.Infof("node:%v, sendAppend, to:%v, From:%v, Term:%v, LogTerm:%v, Index:%v, Commit:%v",
+		r.id, to, r.id, r.Term, recordLogTerm, recordLogIndex, r.RaftLog.committed)
 	return true
 }
 
@@ -103,4 +108,23 @@ func (r *Raft) sendHeartbeatResponse(to uint64, reject bool) {
 		Term:    r.Term,
 	}
 	r.msgs = append(r.msgs, msg)
+}
+
+func (r *Raft) sendSnapshot(to uint64) {
+	log.Infof("node:%v, sendSnapshot, to:%v", r.id, to)
+
+	snapshot, err := r.RaftLog.storage.Snapshot()
+	if err != nil {
+		return
+	}
+
+	msg := pb.Message{
+		MsgType:  pb.MessageType_MsgSnapshot,
+		To:       to,
+		From:     r.id,
+		Term:     r.Term,
+		Snapshot: &snapshot,
+	}
+	r.msgs = append(r.msgs, msg)
+	r.Prs[to].Next = snapshot.Metadata.Index + 1
 }

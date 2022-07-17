@@ -4,6 +4,7 @@ import (
 	"math/rand"
 	"sort"
 
+	"github.com/pingcap-incubator/tinykv/log"
 	pb "github.com/pingcap-incubator/tinykv/proto/pkg/eraftpb"
 )
 
@@ -245,11 +246,9 @@ func (r *Raft) handleSnapshot(m pb.Message) {
 	// Your Code Here (2C).
 	// get the information in the snapshot and apply state
 	//
-	if m.Term > r.Term {
-		r.becomeFollower(m.Term, m.From)
-	}
-
 	meta := m.Snapshot.Metadata
+	log.Infof("node:%v, handleSnapshot, r.Term:%v, m.Term:%v, meta.Index:%v, meta.Term:%v, r.RaftLog.committed:%v",
+		r.id, r.Term, m.Term, meta.Index, meta.Term, r.RaftLog.committed)
 
 	// the node log entries newer than snapshot
 	if meta.Index <= r.RaftLog.committed {
@@ -257,6 +256,7 @@ func (r *Raft) handleSnapshot(m pb.Message) {
 		return
 	}
 
+	r.becomeFollower(max(m.Term, r.Term), m.From)
 	// update state
 	r.RaftLog.firstIndex = meta.Index + 1
 	r.RaftLog.applied = meta.Index
@@ -275,7 +275,7 @@ func (r *Raft) handleSnapshot(m pb.Message) {
 
 func (r *Raft) handleBeat(m pb.Message) {
 	for peer := range r.Prs {
-		// log.Infof("node:%v, handleBeat, sendHeartbeat, to:%v", r.id, peer)
+		log.Infof("node:%v, handleBeat, sendHeartbeat, to:%v", r.id, peer)
 		if peer == r.id {
 			continue
 		} else {

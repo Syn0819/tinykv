@@ -221,7 +221,7 @@ func (c *Cluster) CallCommandOnLeader(request *raft_cmdpb.RaftCmdRequest, timeou
 		request.Header.Peer = leader
 		resp, txn := c.CallCommand(request, 1*time.Second)
 		if resp == nil {
-			log.Debugf("can't call command %s on leader %d of region %d", request.String(), leader.GetId(), regionID)
+			log.Infof("can't call command %s on leader %d of region %d", request.String(), leader.GetId(), regionID)
 			newLeader := c.LeaderOfRegion(regionID)
 			if leader == newLeader {
 				region, _, err := c.schedulerClient.GetRegionByID(context.TODO(), regionID)
@@ -230,10 +230,10 @@ func (c *Cluster) CallCommandOnLeader(request *raft_cmdpb.RaftCmdRequest, timeou
 				}
 				peers := region.GetPeers()
 				leader = peers[rand.Int()%len(peers)]
-				log.Debugf("leader info maybe wrong, use random leader %d of region %d", leader.GetId(), regionID)
+				log.Infof("leader info maybe wrong, use random leader %d of region %d", leader.GetId(), regionID)
 			} else {
 				leader = newLeader
-				log.Debugf("use new leader %d of region %d", leader.GetId(), regionID)
+				log.Infof("use new leader %d of region %d", leader.GetId(), regionID)
 			}
 			continue
 		}
@@ -299,6 +299,7 @@ func (c *Cluster) MustPut(key, value []byte) {
 }
 
 func (c *Cluster) MustPutCF(cf string, key, value []byte) {
+	log.Infof("MustPutCF, key:%v, value:%v", key, value)
 	req := NewPutCfCmd(cf, key, value)
 	resp, _ := c.Request(key, []*raft_cmdpb.Request{req}, 5*time.Second)
 	if resp.Header.Error != nil {

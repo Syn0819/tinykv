@@ -1,3 +1,4 @@
+// 2022 07 17
 # Project3 MultiRaftKV
 
 In project2, you have built a high available kv server based on Raft, good work! But not enough, such kv server is backed by a single raft group which is not unlimited scalable, and every write request will wait until committed and then write to badger one by one, which is a key requirement to ensure consistency, but also kill any concurrency.

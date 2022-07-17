@@ -200,14 +200,21 @@ func (rn *RawNode) HasReady() bool {
 		len(rn.Raft.RaftLog.nextEnts()))
 
 	if !IsEmptyHardState(hs) && !isHardStateEqual(hs, rn.hardst) {
+		log.Infof("has Ready")
 		return true
 	}
 
 	if len(rn.Raft.msgs) > 0 || len(rn.Raft.RaftLog.unstableEntries()) > 0 ||
 		len(rn.Raft.RaftLog.nextEnts()) > 0 {
+		log.Infof("has Ready")
 		return true
 	}
 
+	if !IsEmptySnap(rn.Raft.RaftLog.pendingSnapshot) {
+		log.Infof("has Ready")
+		return true
+	}
+	log.Infof("not has Ready")
 	return false
 }
 

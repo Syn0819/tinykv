@@ -442,9 +442,11 @@ func TestOneSnapshot2C(t *testing.T) {
 	defer cluster.Shutdown()
 
 	cf := engine_util.CfLock
+	log.Infof("Put one")
 	cluster.MustPutCF(cf, []byte("k1"), []byte("v1"))
+	log.Infof("Put one")
 	cluster.MustPutCF(cf, []byte("k2"), []byte("v2"))
-
+	log.Infof("Put finish")
 	MustGetCfEqual(cluster.engines[1], cf, []byte("k1"), []byte("v1"))
 	MustGetCfEqual(cluster.engines[1], cf, []byte("k2"), []byte("v2"))
 
@@ -468,6 +470,8 @@ func TestOneSnapshot2C(t *testing.T) {
 
 	// write some data to trigger snapshot
 	for i := 100; i < 115; i++ {
+		log.Infof("i:%v", i)
+		log.Infof("Put one")
 		cluster.MustPutCF(cf, []byte(fmt.Sprintf("k%d", i)), []byte(fmt.Sprintf("v%d", i)))
 	}
 	cluster.MustDeleteCF(cf, []byte("k2"))

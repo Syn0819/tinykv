@@ -384,7 +384,8 @@ func (r *Raft) leaderMsgHandle(m pb.Message) {
 func (r *Raft) Step(m pb.Message) error {
 	// Your Code Here (2A).
 	// Rules for servers: All servers 2
-	//log.Infof("node:%v, Step, r.State:%v, r.Term:%v, m.Term:%v", r.id, r.State, r.Term, m.Term)
+	log.Infof("node:%v, Step, MsgType:%v, r.State:%v, r.Term:%v, m.Term:%v",
+		r.id, m.MsgType, r.State, r.Term, m.Term)
 	if m.Term > r.Term {
 		r.becomeFollower(m.Term, None)
 	}

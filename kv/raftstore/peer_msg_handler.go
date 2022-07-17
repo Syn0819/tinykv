@@ -57,7 +57,27 @@ func (d *peerMsgHandler) getRequestKey(req *raft_cmdpb.Request) []byte {
 }
 
 func (d *peerMsgHandler) handleAdminRequest(entry *eraftpb.Entry, msg *raft_cmdpb.RaftCmdRequest, kvWB *engine_util.WriteBatch) {
+	req := msg.AdminRequest
 
+	switch req.CmdType {
+	case raft_cmdpb.AdminCmdType_CompactLog:
+		campactLog := req.GetCompactLog()
+		applyState := d.peerStorage.applyState
+		if campactLog.CompactIndex >= applyState.TruncatedState.Index {
+			applyState.TruncatedState.Index = campactLog.CompactIndex
+			applyState.TruncatedState.Term = campactLog.CompactTerm
+
+			log.Infof("handleAdminRequest, applyState.TruncatedState.Index:%v, applyState.TruncatedState.Term:%v",
+				applyState.TruncatedState.Index, applyState.TruncatedState.Term)
+
+			kvWB.SetMeta(meta.ApplyStateKey(d.regionId), applyState)
+			d.ScheduleCompactLog(applyState.TruncatedState.Index)
+		}
+	case raft_cmdpb.AdminCmdType_ChangePeer:
+	case raft_cmdpb.AdminCmdType_InvalidAdmin:
+	case raft_cmdpb.AdminCmdType_Split:
+	case raft_cmdpb.AdminCmdType_TransferLeader:
+	}
 }
 
 //
@@ -242,9 +262,15 @@ func (d *peerMsgHandler) preProposeRaftCommand(req *raft_cmdpb.RaftCmdRequest) e
 // handle admin request
 func (d *peerMsgHandler) proposeAdminRequest(msg *raft_cmdpb.RaftCmdRequest, cb *message.Callback) {
 	req := msg.AdminRequest
+	log.Infof("proposeAdminRequest, req.CmdType:%v", req.CmdType)
 	switch req.CmdType {
 	case raft_cmdpb.AdminCmdType_ChangePeer:
 	case raft_cmdpb.AdminCmdType_CompactLog:
+		data, err := msg.Marshal()
+		if err != nil {
+			panic(err)
+		}
+		d.RaftGroup.Propose(data)
 	case raft_cmdpb.AdminCmdType_TransferLeader:
 	case raft_cmdpb.AdminCmdType_Split:
 	}
@@ -596,6 +622,8 @@ func (d *peerMsgHandler) onRaftGCLogTick() {
 
 	appliedIdx := d.peerStorage.AppliedIndex()
 	firstIdx, _ := d.peerStorage.FirstIndex()
+	log.Infof("onRaftGCLogTick, appliedIdx:%v, firstIdx:%v, RaftLogGcCountLimit:%v",
+		appliedIdx, firstIdx, d.ctx.cfg.RaftLogGcCountLimit)
 	var compactIdx uint64
 	if appliedIdx > firstIdx && appliedIdx-firstIdx >= d.ctx.cfg.RaftLogGcCountLimit {
 		compactIdx = appliedIdx
@@ -617,6 +645,7 @@ func (d *peerMsgHandler) onRaftGCLogTick() {
 	}
 
 	// Create a compact log request and notify directly.
+	log.Infof("onRaftGCLogTick, Create a compact log request and notify directly")
 	regionID := d.regionId
 	request := newCompactLogRequest(regionID, d.Meta, compactIdx, term)
 	d.proposeRaftCommand(request, nil)
