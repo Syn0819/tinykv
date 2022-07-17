@@ -128,3 +128,12 @@ func (r *Raft) sendSnapshot(to uint64) {
 	r.msgs = append(r.msgs, msg)
 	r.Prs[to].Next = snapshot.Metadata.Index + 1
 }
+
+func (r *Raft) sendTimeoutNow(to uint64) {
+	msg := pb.Message{
+		MsgType: pb.MessageType_MsgTimeoutNow,
+		To:      to,
+		From:    r.id,
+	}
+	r.msgs = append(r.msgs, msg)
+}

@@ -321,7 +321,12 @@ func (r *Raft) followerMsgHandle(m pb.Message) {
 	case pb.MessageType_MsgSnapshot:
 		r.handleSnapshot(m)
 	case pb.MessageType_MsgTimeoutNow:
+		r.handleElection()
 	case pb.MessageType_MsgTransferLeader:
+		if r.Lead != None {
+			m.To = r.Lead
+			r.msgs = append(r.msgs, m)
+		}
 	}
 }
 
@@ -350,6 +355,10 @@ func (r *Raft) candidateMsgHandle(m pb.Message) {
 		r.handleSnapshot(m)
 	case pb.MessageType_MsgTimeoutNow:
 	case pb.MessageType_MsgTransferLeader:
+		if r.Lead != None {
+			m.To = r.Lead
+			r.msgs = append(r.msgs, m)
+		}
 	}
 }
 
@@ -376,6 +385,7 @@ func (r *Raft) leaderMsgHandle(m pb.Message) {
 		r.handleSnapshot(m)
 	case pb.MessageType_MsgTimeoutNow:
 	case pb.MessageType_MsgTransferLeader:
+		r.handleTransferLeader(m)
 	}
 }
 
@@ -426,9 +436,21 @@ func (r *Raft) Commit() {
 // addNode add a new node to raft group
 func (r *Raft) addNode(id uint64) {
 	// Your Code Here (3A).
+	if _, ok := r.Prs[id]; !ok {
+		log.Infof("do not find the node id:%v, add to r.Prs", id)
+		r.Prs[id] = &Progress{Next: 1}
+	}
+	r.PendingConfIndex = None
 }
 
 // removeNode remove a node from raft group
 func (r *Raft) removeNode(id uint64) {
 	// Your Code Here (3A).
+	if _, ok := r.Prs[id]; ok {
+		delete(r.Prs, id)
+		if r.State == StateLeader {
+			r.Commit()
+		}
+	}
+	r.PendingConfIndex = None
 }

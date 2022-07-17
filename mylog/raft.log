@@ -1,0 +1,1803 @@
+2022/07/17 09:09:26 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:26 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:26 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:26 raft.go:397: [info] node:1, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:26 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:26 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:26 msg_handle.go:78: [info] The node:1 has been removed from the group
+2022/07/17 09:09:26 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:26 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 raft.go:440: [info] do not find the node id:2, add to r.Prs
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 log.go:119: [info] nextEnts, len(l.entries):2, l.applied:0, l.committed:0, l.firstIndex:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:2
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:2, Commit:2
+2022/07/17 09:09:34 log.go:119: [info] nextEnts, len(l.entries):3, l.applied:0, l.committed:2, l.firstIndex:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 log.go:119: [info] nextEnts, len(l.entries):3, l.applied:2, l.committed:3, l.firstIndex:1
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:1, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:2, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:1, m.Term:2
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:1, m.Term:2
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:2, m.Term:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:2, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:2, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 raft.go:301: [info] node:2, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:2
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:2, LogTerm:2, Index:2, Commit:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:2, LogTerm:1, Index:1, Commit:2
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateFollower, r.Term:2, m.Term:0
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:2, m.Term:0
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:2, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:2, m.Term:3
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:2, m.Term:3
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:3, m.Term:3
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:2
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:3, LogTerm:2, Index:2, Commit:2
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:2
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:3, LogTerm:2, Index:2, Commit:2
+2022/07/17 09:09:34 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:3
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:3, LogTerm:3, Index:3, Commit:3
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:2
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:3, LogTerm:2, Index:2, Commit:3
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:3, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:2, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:3, m.Term:4
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:3, m.Term:4
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:4, m.Term:4
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:3
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:4, LogTerm:3, Index:3, Commit:3
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:3
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:4, LogTerm:3, Index:3, Commit:3
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:34 raft.go:301: [info] node:2, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:4, m.Term:4
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:4, m.Term:4
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:3
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:4, LogTerm:3, Index:3, Commit:4
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:4
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:4, LogTerm:4, Index:4, Commit:4
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:4, m.Term:4
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:4, m.Term:4
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:4, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:4, m.Term:5
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:4, m.Term:5
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:5, m.Term:5
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:4
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:5, LogTerm:4, Index:4, Commit:4
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:4
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:5, LogTerm:4, Index:4, Commit:4
+2022/07/17 09:09:34 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:5, m.Term:5
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:5, m.Term:5
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:5
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:5, LogTerm:5, Index:5, Commit:5
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:4
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:5, LogTerm:4, Index:4, Commit:5
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:5, m.Term:5
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:5, m.Term:5
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgTransferLeader, r.State:StateFollower, r.Term:1, m.Term:0
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:1, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:2, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:1, m.Term:2
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:1, m.Term:2
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:2, m.Term:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:2, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:2, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 raft.go:301: [info] node:2, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:2
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:2, LogTerm:2, Index:2, Commit:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:2, LogTerm:1, Index:1, Commit:2
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateFollower, r.Term:2, m.Term:0
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateFollower, r.Term:2, m.Term:0
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:2, m.Term:0
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:2, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:2, m.Term:3
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:2, m.Term:3
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:3, m.Term:3
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:2
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:3, LogTerm:2, Index:2, Commit:2
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:2
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:3, LogTerm:2, Index:2, Commit:2
+2022/07/17 09:09:34 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:2
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:3, LogTerm:2, Index:2, Commit:3
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:3
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:3, LogTerm:3, Index:3, Commit:3
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:3, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:2, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:3, m.Term:4
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:3, m.Term:4
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:4, m.Term:4
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:3
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:4, LogTerm:3, Index:3, Commit:3
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:3
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:4, LogTerm:3, Index:3, Commit:3
+2022/07/17 09:09:34 raft.go:301: [info] node:2, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:4, m.Term:4
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:4, m.Term:4
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:3
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:4, LogTerm:3, Index:3, Commit:4
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:4
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:4, LogTerm:4, Index:4, Commit:4
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:4, m.Term:4
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:4, m.Term:4
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:4, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:4, m.Term:5
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:4, m.Term:5
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:5, m.Term:5
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:4
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:5, LogTerm:4, Index:4, Commit:4
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:4
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:5, LogTerm:4, Index:4, Commit:4
+2022/07/17 09:09:34 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:5, m.Term:5
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:5, m.Term:5
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:5
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:5, LogTerm:5, Index:5, Commit:5
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:4
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:5, LogTerm:4, Index:4, Commit:5
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:5, m.Term:5
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:5, m.Term:5
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:2
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:2, Commit:2
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:1, Index:1, Commit:2
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:1, Index:1, Commit:2
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:1, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:3, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:1, m.Term:2
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:1, m.Term:2
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:2, m.Term:2
+2022/07/17 09:09:34 util.go:138: [info] node:3, broadcastAppend, to:1
+2022/07/17 09:09:34 msg_send.go:57: [info] node:3, sendAppend, to:1, recordLogIndex:2
+2022/07/17 09:09:34 msg_send.go:85: [info] node:3, sendAppend, to:1, From:3, Term:2, LogTerm:1, Index:2, Commit:2
+2022/07/17 09:09:34 util.go:138: [info] node:3, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:3, sendAppend, to:2, recordLogIndex:2
+2022/07/17 09:09:34 msg_send.go:85: [info] node:3, sendAppend, to:2, From:3, Term:2, LogTerm:1, Index:2, Commit:2
+2022/07/17 09:09:34 util.go:138: [info] node:3, broadcastAppend, to:3
+2022/07/17 09:09:34 raft.go:301: [info] node:3, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 util.go:138: [info] node:3, broadcastAppend, to:1
+2022/07/17 09:09:34 msg_send.go:57: [info] node:3, sendAppend, to:1, recordLogIndex:3
+2022/07/17 09:09:34 msg_send.go:85: [info] node:3, sendAppend, to:1, From:3, Term:2, LogTerm:2, Index:3, Commit:3
+2022/07/17 09:09:34 util.go:138: [info] node:3, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:3, sendAppend, to:2, recordLogIndex:2
+2022/07/17 09:09:34 msg_send.go:85: [info] node:3, sendAppend, to:2, From:3, Term:2, LogTerm:1, Index:2, Commit:3
+2022/07/17 09:09:34 util.go:138: [info] node:3, broadcastAppend, to:3
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:1, Index:1, Commit:2
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:2
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:2, Commit:2
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 log.go:119: [info] nextEnts, len(l.entries):2, l.applied:0, l.committed:2, l.firstIndex:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:1, Index:1, Commit:2
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:1, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:3, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:1, m.Term:2
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:1, m.Term:2
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:2, m.Term:2
+2022/07/17 09:09:34 util.go:138: [info] node:3, broadcastAppend, to:1
+2022/07/17 09:09:34 msg_send.go:57: [info] node:3, sendAppend, to:1, recordLogIndex:2
+2022/07/17 09:09:34 msg_send.go:85: [info] node:3, sendAppend, to:1, From:3, Term:2, LogTerm:1, Index:2, Commit:2
+2022/07/17 09:09:34 util.go:138: [info] node:3, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:3, sendAppend, to:2, recordLogIndex:2
+2022/07/17 09:09:34 msg_send.go:85: [info] node:3, sendAppend, to:2, From:3, Term:2, LogTerm:1, Index:2, Commit:2
+2022/07/17 09:09:34 util.go:138: [info] node:3, broadcastAppend, to:3
+2022/07/17 09:09:34 raft.go:301: [info] node:3, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 util.go:138: [info] node:3, broadcastAppend, to:1
+2022/07/17 09:09:34 msg_send.go:57: [info] node:3, sendAppend, to:1, recordLogIndex:3
+2022/07/17 09:09:34 msg_send.go:85: [info] node:3, sendAppend, to:1, From:3, Term:2, LogTerm:2, Index:3, Commit:3
+2022/07/17 09:09:34 util.go:138: [info] node:3, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:3, sendAppend, to:2, recordLogIndex:2
+2022/07/17 09:09:34 msg_send.go:85: [info] node:3, sendAppend, to:2, From:3, Term:2, LogTerm:1, Index:2, Commit:3
+2022/07/17 09:09:34 util.go:138: [info] node:3, broadcastAppend, to:3
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgHeartbeatResponse, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:1, m.Term:2
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 raft.go:266: [info] node:2, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:1, m.Term:3
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:3, m.Term:3
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:3, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:3, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 raft.go:301: [info] node:2, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:2
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:3, LogTerm:3, Index:2, Commit:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:3, LogTerm:1, Index:1, Commit:2
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:34 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:34 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:34 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:1, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:2, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:1, m.Term:2
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:2, m.Term:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:2, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:2, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:34 raft.go:301: [info] node:2, becomeLeader
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:2, LogTerm:1, Index:1, Commit:2
+2022/07/17 09:09:34 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:34 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:2
+2022/07/17 09:09:34 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:2, LogTerm:2, Index:2, Commit:2
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:34 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:34 msg_handle.go:78: [info] The node:1 has been removed from the group
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 log.go:119: [info] nextEnts, len(l.entries):0, l.applied:0, l.committed:0, l.firstIndex:1
+2022/07/17 09:09:34 log.go:119: [info] nextEnts, len(l.entries):0, l.applied:0, l.committed:0, l.firstIndex:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:34 log.go:119: [info] nextEnts, len(l.entries):1, l.applied:0, l.committed:1, l.firstIndex:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:34 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:34 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:34 log.go:119: [info] nextEnts, len(l.entries):0, l.applied:0, l.committed:0, l.firstIndex:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:34 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:34 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:34 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:34 log.go:119: [info] nextEnts, len(l.entries):1, l.applied:0, l.committed:1, l.firstIndex:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 log.go:119: [info] nextEnts, len(l.entries):2, l.applied:1, l.committed:2, l.firstIndex:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 log.go:119: [info] nextEnts, len(l.entries):3, l.applied:2, l.committed:3, l.firstIndex:1
+2022/07/17 09:09:34 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:34 log.go:119: [info] nextEnts, len(l.entries):4, l.applied:3, l.committed:4, l.firstIndex:1
+2022/07/17 09:09:34 raft.go:440: [info] do not find the node id:2, add to r.Prs
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 raft.go:440: [info] do not find the node id:2, add to r.Prs
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 log.go:119: [info] nextEnts, len(l.entries):2, l.applied:0, l.committed:0, l.firstIndex:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:2
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:2, Commit:2
+2022/07/17 09:09:39 log.go:119: [info] nextEnts, len(l.entries):3, l.applied:0, l.committed:2, l.firstIndex:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 log.go:119: [info] nextEnts, len(l.entries):3, l.applied:2, l.committed:3, l.firstIndex:1
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:1, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:2, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:1, m.Term:2
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:1, m.Term:2
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:2, m.Term:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:2, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:2, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 raft.go:301: [info] node:2, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:2
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:2, LogTerm:2, Index:2, Commit:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:2, LogTerm:1, Index:1, Commit:2
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateFollower, r.Term:2, m.Term:0
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:2, m.Term:0
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:2, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:2, m.Term:3
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:2, m.Term:3
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:3, m.Term:3
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:2
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:3, LogTerm:2, Index:2, Commit:2
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:2
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:3, LogTerm:2, Index:2, Commit:2
+2022/07/17 09:09:39 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:2
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:3, LogTerm:2, Index:2, Commit:3
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:3
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:3, LogTerm:3, Index:3, Commit:3
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:3, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:2, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:3, m.Term:4
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:3, m.Term:4
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:4, m.Term:4
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:3
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:4, LogTerm:3, Index:3, Commit:3
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:3
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:4, LogTerm:3, Index:3, Commit:3
+2022/07/17 09:09:39 raft.go:301: [info] node:2, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:4, m.Term:4
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:4, m.Term:4
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:4
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:4, LogTerm:4, Index:4, Commit:4
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:3
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:4, LogTerm:3, Index:3, Commit:4
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:4, m.Term:4
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:4, m.Term:4
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:4, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:4, m.Term:5
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:4, m.Term:5
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:5, m.Term:5
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:4
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:5, LogTerm:4, Index:4, Commit:4
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:4
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:5, LogTerm:4, Index:4, Commit:4
+2022/07/17 09:09:39 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:5, m.Term:5
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:5, m.Term:5
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:4
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:5, LogTerm:4, Index:4, Commit:5
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:5
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:5, LogTerm:5, Index:5, Commit:5
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:5, m.Term:5
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:5, m.Term:5
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgTransferLeader, r.State:StateFollower, r.Term:1, m.Term:0
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:1, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:2, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:1, m.Term:2
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:1, m.Term:2
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:2, m.Term:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:2, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:2, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 raft.go:301: [info] node:2, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:2, LogTerm:1, Index:1, Commit:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:2
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:2, LogTerm:2, Index:2, Commit:2
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateFollower, r.Term:2, m.Term:0
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateFollower, r.Term:2, m.Term:0
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:2, m.Term:0
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:2, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:2, m.Term:3
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:2, m.Term:3
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:3, m.Term:3
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:2
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:3, LogTerm:2, Index:2, Commit:2
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:2
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:3, LogTerm:2, Index:2, Commit:2
+2022/07/17 09:09:39 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:3
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:3, LogTerm:3, Index:3, Commit:3
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:2
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:3, LogTerm:2, Index:2, Commit:3
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:3, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:2, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:3, m.Term:4
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:3, m.Term:4
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:4, m.Term:4
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:3
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:4, LogTerm:3, Index:3, Commit:3
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:3
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:4, LogTerm:3, Index:3, Commit:3
+2022/07/17 09:09:39 raft.go:301: [info] node:2, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:4, m.Term:4
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:4, m.Term:4
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:3
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:4, LogTerm:3, Index:3, Commit:4
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:4
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:4, LogTerm:4, Index:4, Commit:4
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:4, m.Term:4
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:4, m.Term:4
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:4, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:4, m.Term:4
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:4, m.Term:5
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:4, m.Term:5
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:5, m.Term:5
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:4
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:5, LogTerm:4, Index:4, Commit:4
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:4
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:5, LogTerm:4, Index:4, Commit:4
+2022/07/17 09:09:39 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:5, m.Term:5
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:5, m.Term:5
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:5
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:5, LogTerm:5, Index:5, Commit:5
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:4
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:5, LogTerm:4, Index:4, Commit:5
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:5, m.Term:5
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:5, m.Term:5
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:5, m.Term:5
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:2
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:2, Commit:2
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:1, Index:1, Commit:2
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:1, Index:1, Commit:2
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:1, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:3, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:1, m.Term:2
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:1, m.Term:2
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:2, m.Term:2
+2022/07/17 09:09:39 util.go:138: [info] node:3, broadcastAppend, to:1
+2022/07/17 09:09:39 msg_send.go:57: [info] node:3, sendAppend, to:1, recordLogIndex:2
+2022/07/17 09:09:39 msg_send.go:85: [info] node:3, sendAppend, to:1, From:3, Term:2, LogTerm:1, Index:2, Commit:2
+2022/07/17 09:09:39 util.go:138: [info] node:3, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:3, sendAppend, to:2, recordLogIndex:2
+2022/07/17 09:09:39 msg_send.go:85: [info] node:3, sendAppend, to:2, From:3, Term:2, LogTerm:1, Index:2, Commit:2
+2022/07/17 09:09:39 util.go:138: [info] node:3, broadcastAppend, to:3
+2022/07/17 09:09:39 raft.go:301: [info] node:3, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 util.go:138: [info] node:3, broadcastAppend, to:1
+2022/07/17 09:09:39 msg_send.go:57: [info] node:3, sendAppend, to:1, recordLogIndex:3
+2022/07/17 09:09:39 msg_send.go:85: [info] node:3, sendAppend, to:1, From:3, Term:2, LogTerm:2, Index:3, Commit:3
+2022/07/17 09:09:39 util.go:138: [info] node:3, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:3, sendAppend, to:2, recordLogIndex:2
+2022/07/17 09:09:39 msg_send.go:85: [info] node:3, sendAppend, to:2, From:3, Term:2, LogTerm:1, Index:2, Commit:3
+2022/07/17 09:09:39 util.go:138: [info] node:3, broadcastAppend, to:3
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:1, Index:1, Commit:2
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:2
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:2, Commit:2
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 log.go:119: [info] nextEnts, len(l.entries):2, l.applied:0, l.committed:2, l.firstIndex:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:1, Index:1, Commit:2
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:1, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:3, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:1, m.Term:2
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:1, m.Term:2
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:2, m.Term:2
+2022/07/17 09:09:39 util.go:138: [info] node:3, broadcastAppend, to:1
+2022/07/17 09:09:39 msg_send.go:57: [info] node:3, sendAppend, to:1, recordLogIndex:2
+2022/07/17 09:09:39 msg_send.go:85: [info] node:3, sendAppend, to:1, From:3, Term:2, LogTerm:1, Index:2, Commit:2
+2022/07/17 09:09:39 util.go:138: [info] node:3, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:3, sendAppend, to:2, recordLogIndex:2
+2022/07/17 09:09:39 msg_send.go:85: [info] node:3, sendAppend, to:2, From:3, Term:2, LogTerm:1, Index:2, Commit:2
+2022/07/17 09:09:39 util.go:138: [info] node:3, broadcastAppend, to:3
+2022/07/17 09:09:39 raft.go:301: [info] node:3, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 util.go:138: [info] node:3, broadcastAppend, to:1
+2022/07/17 09:09:39 msg_send.go:57: [info] node:3, sendAppend, to:1, recordLogIndex:3
+2022/07/17 09:09:39 msg_send.go:85: [info] node:3, sendAppend, to:1, From:3, Term:2, LogTerm:2, Index:3, Commit:3
+2022/07/17 09:09:39 util.go:138: [info] node:3, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:3, sendAppend, to:2, recordLogIndex:2
+2022/07/17 09:09:39 msg_send.go:85: [info] node:3, sendAppend, to:2, From:3, Term:2, LogTerm:1, Index:2, Commit:3
+2022/07/17 09:09:39 util.go:138: [info] node:3, broadcastAppend, to:3
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgHeartbeatResponse, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:1, m.Term:2
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 raft.go:266: [info] node:2, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:1, m.Term:3
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:3, m.Term:3
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:3, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:3, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:39 raft.go:301: [info] node:2, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:2
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:3, LogTerm:3, Index:2, Commit:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:3, LogTerm:1, Index:1, Commit:2
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:3, m.Term:3
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:3, m.Term:3
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:2, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgRequestVote, r.State:StateFollower, r.Term:0, m.Term:1
+2022/07/17 09:09:39 raft.go:252: [info] node:3, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:0
+2022/07/17 09:09:39 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:2
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:2, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:2, From:1, Term:1, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:1, sendAppend, to:3, recordLogIndex:0
+2022/07/17 09:09:39 msg_send.go:85: [info] node:1, sendAppend, to:3, From:1, Term:1, LogTerm:0, Index:0, Commit:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:3, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:1, m.Term:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgTransferLeader, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:1, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:2, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVote, r.State:StateLeader, r.Term:1, m.Term:2
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:2, m.Term:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:2, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:2, LogTerm:1, Index:1, Commit:1
+2022/07/17 09:09:39 raft.go:301: [info] node:2, becomeLeader
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:3
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:3, recordLogIndex:1
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:3, From:2, Term:2, LogTerm:1, Index:1, Commit:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:1
+2022/07/17 09:09:39 msg_send.go:57: [info] node:2, sendAppend, to:1, recordLogIndex:2
+2022/07/17 09:09:39 msg_send.go:85: [info] node:2, sendAppend, to:1, From:2, Term:2, LogTerm:2, Index:2, Commit:2
+2022/07/17 09:09:39 util.go:138: [info] node:2, broadcastAppend, to:2
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgAppend, r.State:StateFollower, r.Term:2, m.Term:2
+2022/07/17 09:09:39 raft.go:397: [info] node:2, Step, MsgType:MsgAppendResponse, r.State:StateLeader, r.Term:2, m.Term:2
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgTimeoutNow, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateCandidate, r.Term:1, m.Term:1
+2022/07/17 09:09:39 msg_handle.go:78: [info] The node:1 has been removed from the group
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgRequestVoteResponse, r.State:StateFollower, r.Term:1, m.Term:1
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 log.go:119: [info] nextEnts, len(l.entries):0, l.applied:0, l.committed:0, l.firstIndex:1
+2022/07/17 09:09:39 log.go:119: [info] nextEnts, len(l.entries):0, l.applied:0, l.committed:0, l.firstIndex:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:39 log.go:119: [info] nextEnts, len(l.entries):1, l.applied:0, l.committed:1, l.firstIndex:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 log.go:69: [info] newLog, firstLogIndex:1
+2022/07/17 09:09:39 log.go:74: [info] newLog, lastLogIndex:0
+2022/07/17 09:09:39 raft.go:252: [info] node:1, becomeFollower
+2022/07/17 09:09:39 log.go:119: [info] nextEnts, len(l.entries):0, l.applied:0, l.committed:0, l.firstIndex:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgHup, r.State:StateFollower, r.Term:0, m.Term:0
+2022/07/17 09:09:39 raft.go:266: [info] node:1, becomeCandidate
+2022/07/17 09:09:39 util.go:138: [info] node:1, broadcastAppend, to:1
+2022/07/17 09:09:39 raft.go:301: [info] node:1, becomeLeader
+2022/07/17 09:09:39 log.go:119: [info] nextEnts, len(l.entries):1, l.applied:0, l.committed:1, l.firstIndex:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 log.go:119: [info] nextEnts, len(l.entries):2, l.applied:1, l.committed:2, l.firstIndex:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 log.go:119: [info] nextEnts, len(l.entries):3, l.applied:2, l.committed:3, l.firstIndex:1
+2022/07/17 09:09:39 raft.go:397: [info] node:1, Step, MsgType:MsgPropose, r.State:StateLeader, r.Term:1, m.Term:0
+2022/07/17 09:09:39 log.go:119: [info] nextEnts, len(l.entries):4, l.applied:3, l.committed:4, l.firstIndex:1
+2022/07/17 09:09:39 raft.go:440: [info] do not find the node id:2, add to r.Prs

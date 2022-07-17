@@ -74,7 +74,13 @@ func (r *Raft) handleRequestVote(m pb.Message) {
 
 // handleRequestVoteResponse handle handleRequestVoteResponse RPC request
 func (r *Raft) handleRequestVoteResponse(m pb.Message) {
-	if r.Term < m.Term {
+	if _, ok := r.Prs[r.id]; !ok {
+		log.Infof("The node:%v has been removed from the group", r.id)
+		r.becomeFollower(m.Term, None)
+		return
+	}
+
+	if m.Term != None && m.Term < r.Term {
 		r.becomeFollower(m.Term, None)
 		return
 	}
@@ -323,11 +329,42 @@ func (r *Raft) handleAppendEntriesResponse(m pb.Message) {
 			return
 		}
 	} else {
+		// node 接收消息，更新leader中的node信息，并commit
 		//log.Infof("node:%v, handleAppendEntriesResponse, m.Index:%v, r.Prs[m.From].Match:%v", r.id, m.Index, r.Prs[m.From].Match)
 		if m.Index > r.Prs[m.From].Match {
 			r.Prs[m.From].Next = m.Index + 1
 			r.Prs[m.From].Match = m.Index
 			r.Commit()
+
+			// 处理leader transfer流程
+			if m.From == r.leadTransferee && m.Index == r.RaftLog.LastIndex() {
+				r.sendTimeoutNow(m.From)
+				r.leadTransferee = None
+			}
 		}
+	}
+}
+
+func (r *Raft) handleTransferLeader(m pb.Message) {
+	// 自己发给自己
+	if m.From == r.id {
+		return
+	}
+	// 需要成为leader的是发送方
+	if r.leadTransferee != None && r.leadTransferee == m.From {
+		return
+	}
+
+	if _, ok := r.Prs[m.From]; !ok {
+		return
+	}
+
+	// is qualified?
+	r.leadTransferee = m.From
+
+	if r.Prs[m.From].Match == r.RaftLog.LastIndex() {
+		r.sendTimeoutNow(m.From)
+	} else {
+		r.sendAppend(m.From)
 	}
 }
