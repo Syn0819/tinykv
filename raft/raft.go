@@ -161,6 +161,7 @@ type Raft struct {
 	// be proposed if the leader's applied index is greater than this
 	// value.
 	// (Used in 3A conf change)
+	// 即将处理的conf index，该值是唯一的，只有当leader的applied index大于该值时该日志，会进行处理
 	PendingConfIndex uint64
 }
 

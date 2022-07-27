@@ -103,8 +103,10 @@ func deleteRangeCF(txn *badger.Txn, batch *WriteBatch, cf string, startKey, endK
 }
 
 func ExceedEndKey(current, endKey []byte) bool {
+	// 1. endKey = ""，还未spilt的情况
 	if len(endKey) == 0 {
 		return false
 	}
+	// 2. 若已split，则对比大小
 	return bytes.Compare(current, endKey) >= 0
 }

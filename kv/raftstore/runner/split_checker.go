@@ -35,7 +35,7 @@ func NewSplitCheckHandler(engine *badger.DB, router message.RaftRouter, conf *co
 
 /// run checks a region with split checkers to produce split keys and generates split admin command.
 func (r *splitCheckHandler) Handle(t worker.Task) {
-	spCheckTask, ok := t.(*SplitCheckTask)
+	spCheckTask, ok := t.(*SplitCheckTask) // 空接口获取值
 	if !ok {
 		log.Errorf("unsupported worker.Task: %+v", t)
 		return
@@ -46,6 +46,7 @@ func (r *splitCheckHandler) Handle(t worker.Task) {
 		hex.EncodeToString(region.StartKey), hex.EncodeToString(region.EndKey))
 	key := r.splitCheck(regionId, region.StartKey, region.EndKey)
 	if key != nil {
+		// 检查可split
 		_, userKey, err := codec.DecodeBytes(key)
 		if err == nil {
 			// It's not a raw key.
@@ -70,6 +71,7 @@ func (r *splitCheckHandler) Handle(t worker.Task) {
 }
 
 /// SplitCheck gets the split keys by scanning the range.
+//
 func (r *splitCheckHandler) splitCheck(regionID uint64, startKey, endKey []byte) []byte {
 	txn := r.engine.NewTransaction(false)
 	defer txn.Discard()
@@ -77,6 +79,7 @@ func (r *splitCheckHandler) splitCheck(regionID uint64, startKey, endKey []byte)
 	r.checker.reset()
 	it := engine_util.NewCFIterator(engine_util.CfDefault, txn)
 	defer it.Close()
+	// 检查
 	for it.Seek(startKey); it.Valid(); it.Next() {
 		item := it.Item()
 		key := item.Key()
@@ -88,6 +91,7 @@ func (r *splitCheckHandler) splitCheck(regionID uint64, startKey, endKey []byte)
 			})
 			break
 		}
+		// 给未split检查
 		if r.checker.onKv(key, item) {
 			break
 		}
@@ -96,6 +100,7 @@ func (r *splitCheckHandler) splitCheck(regionID uint64, startKey, endKey []byte)
 }
 
 type sizeSplitChecker struct {
+	// maxSize 和 splitSize是设定的参数
 	maxSize   uint64
 	splitSize uint64
 
@@ -115,6 +120,7 @@ func (checker *sizeSplitChecker) reset() {
 	checker.splitKey = nil
 }
 
+// 检查key+value的长度
 func (checker *sizeSplitChecker) onKv(key []byte, item engine_util.DBItem) bool {
 	valueSize := uint64(item.ValueSize())
 	size := uint64(len(key)) + valueSize

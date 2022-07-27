@@ -61,6 +61,8 @@ func (d *peerMsgHandler) handleAdminRequest(entry *eraftpb.Entry, msg *raft_cmdp
 
 	switch req.CmdType {
 	case raft_cmdpb.AdminCmdType_CompactLog:
+		// 处理逻辑：
+		// 1. 检查snap触发的CompactIndex是否比之前截断的log index大，不然没意义
 		campactLog := req.GetCompactLog()
 		applyState := d.peerStorage.applyState
 		if campactLog.CompactIndex >= applyState.TruncatedState.Index {
@@ -76,7 +78,11 @@ func (d *peerMsgHandler) handleAdminRequest(entry *eraftpb.Entry, msg *raft_cmdp
 	case raft_cmdpb.AdminCmdType_ChangePeer:
 	case raft_cmdpb.AdminCmdType_InvalidAdmin:
 	case raft_cmdpb.AdminCmdType_Split:
+		// 处理逻辑: split需要将region分裂成两个，一个继承原来的，一个新创建
+		// 1.
+
 	case raft_cmdpb.AdminCmdType_TransferLeader:
+
 	}
 }
 
@@ -138,7 +144,115 @@ func (d *peerMsgHandler) handleRequest(entry *eraftpb.Entry, msg *raft_cmdpb.Raf
 	return kvWB
 }
 
+func (d *peerMsgHandler) searchAPeerInRegion(region *metapb.Region, id uint64) int {
+	for i, peer := range region.Peers {
+		if peer.Id == id {
+			return i
+		}
+	}
+	return len(region.Peers)
+}
+
+func (d *peerMsgHandler) handleConfChange(entry *eraftpb.Entry, cc *eraftpb.ConfChange, kvWB *engine_util.WriteBatch) {
+	// 具体处理逻辑
+	// 修改 RegionLocalState 中的状态，包括 RegionEpoch，peers
+	msg := &raft_cmdpb.RaftCmdRequest{}
+	err := msg.Unmarshal(cc.Context)
+	if err != nil {
+		panic(err)
+	}
+	region := d.Region()
+	err = util.CheckRegionEpoch(msg, region, true)
+	if errEpochNotMatch, ok := err.(*util.ErrEpochNotMatch); ok {
+		//
+		if len(d.proposals) > 0 {
+			p := d.proposals[0]
+			if p.index == entry.Index {
+				if p.term == entry.Term {
+					// 日志check, 确认该日志不在region内，回复错误
+					p.cb.Done(ErrResp(errEpochNotMatch))
+				} else {
+					NotifyStaleReq(entry.Term, p.cb)
+				}
+			}
+			d.proposals = d.proposals[1:]
+		}
+
+	}
+
+	switch cc.ChangeType {
+	case eraftpb.ConfChangeType_AddNode:
+		// 增加节点，看下region内是否存在该节点
+		index := d.searchAPeerInRegion(region, cc.NodeId)
+		if index == len(region.Peers) {
+			// 添加进peer
+			peer := msg.AdminRequest.ChangePeer.Peer
+			region.Peers = append(region.Peers, peer)
+			region.RegionEpoch.ConfVer++
+			meta.WriteRegionState(kvWB, region, rspb.PeerState_Normal)
+
+			storeMeta := d.ctx.storeMeta
+			storeMeta.Lock()
+			storeMeta.regions[region.Id] = region
+			storeMeta.Unlock()
+			d.insertPeerCache(peer)
+		}
+	case eraftpb.ConfChangeType_RemoveNode:
+		// 删除节点
+		// 若要删除的是本节点，则调用destroyPeer
+		if cc.NodeId == d.Meta.Id {
+			d.destroyPeer()
+			return
+		}
+
+		index := d.searchAPeerInRegion(region, cc.NodeId)
+		if index < len(region.Peers) {
+			region.Peers = append(region.Peers[:index], region.Peers[index+1:]...)
+			region.RegionEpoch.ConfVer++
+			meta.WriteRegionState(kvWB, region, rspb.PeerState_Normal)
+
+			storeMeta := d.ctx.storeMeta
+			storeMeta.Lock()
+			storeMeta.regions[region.Id] = region
+			storeMeta.Unlock()
+			d.removePeerCache(cc.NodeId)
+		}
+	}
+
+	// raft模块实际处理conf change
+	d.RaftGroup.ApplyConfChange(*cc)
+	// 回响应
+	if len(d.proposals) > 0 {
+		p := d.proposals[0]
+		if p.index == entry.Index {
+			if p.term == entry.Term {
+				p.cb.Done(&raft_cmdpb.RaftCmdResponse{
+					Header: &raft_cmdpb.RaftResponseHeader{},
+					AdminResponse: &raft_cmdpb.AdminResponse{
+						CmdType:    raft_cmdpb.AdminCmdType_ChangePeer,
+						ChangePeer: &raft_cmdpb.ChangePeerResponse{},
+					},
+				})
+
+			} else {
+				NotifyStaleReq(entry.Term, p.cb)
+			}
+		}
+		d.proposals = d.proposals[1:]
+	}
+}
+
 func (d *peerMsgHandler) applyEntries(entry *eraftpb.Entry, kvWB *engine_util.WriteBatch) *engine_util.WriteBatch {
+	// 处理confchange，即节点add或remove
+	if entry.EntryType == eraftpb.EntryType_EntryConfChange {
+		cc := &eraftpb.ConfChange{}
+		err := cc.Unmarshal(entry.Data)
+		if err != nil {
+			panic(err)
+		}
+		d.handleConfChange(entry, cc, kvWB)
+		return kvWB
+	}
 	// unmarshal
 	msg := &raft_cmdpb.RaftCmdRequest{}
 	err := msg.Unmarshal(entry.Data)
@@ -177,6 +291,7 @@ func (d *peerMsgHandler) HandleRaftReady() {
 			kvWB := new(engine_util.WriteBatch)
 			for _, entry := range ready.CommittedEntries {
 				// unmarshal
+				// 对于每个raft模块已提交的日志，需要写入badger
 				kvWB = d.applyEntries(&entry, kvWB)
 				if d.stopped {
 					return
@@ -265,6 +380,23 @@ func (d *peerMsgHandler) proposeAdminRequest(msg *raft_cmdpb.RaftCmdRequest, cb 
 	log.Infof("proposeAdminRequest, req.CmdType:%v", req.CmdType)
 	switch req.CmdType {
 	case raft_cmdpb.AdminCmdType_ChangePeer:
+		//
+
+		context, err := msg.Marshal()
+		if err != nil {
+			panic(err)
+		}
+
+		cc := eraftpb.ConfChange{
+			ChangeType: req.ChangePeer.ChangeType,
+			NodeId:     req.ChangePeer.Peer.Id,
+			Context:    context,
+		}
+
+		p := &proposal{index: d.nextProposalIndex(), term: d.Term(), cb: cb}
+		d.proposals = append(d.proposals, p)
+
+		d.RaftGroup.ProposeConfChange(cc)
 	case raft_cmdpb.AdminCmdType_CompactLog:
 		data, err := msg.Marshal()
 		if err != nil {
@@ -272,7 +404,35 @@ func (d *peerMsgHandler) proposeAdminRequest(msg *raft_cmdpb.RaftCmdRequest, cb 
 		}
 		d.RaftGroup.Propose(data)
 	case raft_cmdpb.AdminCmdType_TransferLeader:
+		// 这个leader转移的操作，虽然属于raft command的一种
+		// 但是实际就做了一个转移动作，不需要将日志复制给peers
+		d.RaftGroup.TransferLeader(req.TransferLeader.Peer.Id)
+
+		transferLeaderRequest := raft_cmdpb.RaftCmdResponse{
+			Header: &raft_cmdpb.RaftResponseHeader{},
+			AdminResponse: &raft_cmdpb.AdminResponse{
+				CmdType:        raft_cmdpb.AdminCmdType_TransferLeader,
+				TransferLeader: &raft_cmdpb.TransferLeaderResponse{},
+			},
+		}
+
+		cb.Done(&transferLeaderRequest)
 	case raft_cmdpb.AdminCmdType_Split:
+		err := util.CheckKeyInRegion(req.Split.SplitKey, d.Region())
+		if err != nil {
+			cb.Done(ErrResp(err))
+			return
+		}
+
+		data, err := msg.Marshal()
+		if err != nil {
+			panic(err)
+		}
+
+		p := &proposal{index: d.nextProposalIndex(), term: d.Term(), cb: cb}
+		d.proposals = append(d.proposals, p)
+
+		d.RaftGroup.Propose(data)
 	}
 }
 
@@ -522,6 +682,7 @@ func (d *peerMsgHandler) handleGCPeerMsg(msg *rspb.RaftMessage) {
 
 // Returns `None` if the `msg` doesn't contain a snapshot or it contains a snapshot which
 // doesn't conflict with any other snapshots or regions. Otherwise a `snap.SnapKey` is returned.
+// 检查msg是否包含快照，或其快照是否与其他快照和regions冲突
 func (d *peerMsgHandler) checkSnapshot(msg *rspb.RaftMessage) (*snap.SnapKey, error) {
 	if msg.Message.Snapshot == nil {
 		return nil, nil
@@ -536,6 +697,7 @@ func (d *peerMsgHandler) checkSnapshot(msg *rspb.RaftMessage) (*snap.SnapKey, er
 	}
 	snapRegion := snapData.Region
 	peerID := msg.ToPeer.Id
+	// 检查快照接收方是否在该region内
 	var contains bool
 	for _, peer := range snapRegion.Peers {
 		if peer.Id == peerID {

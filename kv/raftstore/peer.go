@@ -92,6 +92,8 @@ type peer struct {
 	// Cache the peers information from other stores
 	// when sending raft messages to other peers, it's used to get the store id of target peer
 	// (Used in 3B conf change)
+	// 缓存的peers信息
+	// 用于当需要发送raft消息给其他peers时，获取目标peer的store id
 	peerCache map[uint64]*metapb.Peer
 	// Record the instants of peers being added into the configuration.
 	// Remove them after they are not pending any more.
@@ -104,10 +106,13 @@ type peer struct {
 	// An inaccurate difference in region size since last reset.
 	// split checker is triggered when it exceeds the threshold, it makes split checker not scan the data very often
 	// (Used in 3B split)
+	// 从最后一次reset后的不精确的对region大小评估
+	// 该值超过阈值后split checker才会进行处理
 	SizeDiffHint uint64
 	// Approximate size of the region.
 	// It's updated everytime the split checker scan the data
 	// (Used in 3B split)
+	// 估计region大小，这个值在split checker扫描数据后更新
 	ApproximateSize *uint64
 }
 
@@ -274,6 +279,7 @@ func (p *peer) Send(trans Transport, msgs []eraftpb.Message) {
 }
 
 /// Collects all pending peers and update `peers_start_pending_time`.
+// 等待所有等待的peers，并且更新peers_start_pending_time
 func (p *peer) CollectPendingPeers() []*metapb.Peer {
 	pendingPeers := make([]*metapb.Peer, 0, len(p.Region().GetPeers()))
 	truncatedIdx := p.peerStorage.truncatedIndex()
@@ -342,6 +348,7 @@ func (p *peer) Term() uint64 {
 	return p.RaftGroup.Raft.Term
 }
 
+//
 func (p *peer) HeartbeatScheduler(ch chan<- worker.Task) {
 	clonedRegion := new(metapb.Region)
 	err := util.CloneMsg(p.Region(), clonedRegion)
