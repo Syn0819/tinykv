@@ -29,6 +29,7 @@ type regionItem struct {
 }
 
 // Less returns true if the region start key is less than the other.
+// 实现接口
 func (r *regionItem) Less(other btree.Item) bool {
 	left := r.region.GetStartKey()
 	right := other.(*regionItem).region.GetStartKey()

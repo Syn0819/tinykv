@@ -78,11 +78,72 @@ func (d *peerMsgHandler) handleAdminRequest(entry *eraftpb.Entry, msg *raft_cmdp
 	case raft_cmdpb.AdminCmdType_ChangePeer:
 	case raft_cmdpb.AdminCmdType_InvalidAdmin:
 	case raft_cmdpb.AdminCmdType_Split:
-		// 处理逻辑: split需要将region分裂成两个，一个继承原来的，一个新创建
-		// 1.
+		/* 处理逻辑: split需要将region分裂成两个，一个继承原来的，一个新创建
+		** 1. 读取被分离的region信息
+		** 2. 读取分裂的region信息
+		** 3. 从被分离的region中删除分裂region的信息
+		** 4. 新建分裂的region信息
+		 */
+		region := d.Region()
+		err := util.CheckRegionEpoch(msg, region, true)
+		if errEpochNotMatch, ok := err.(*util.ErrRegionNotFound); ok {
+			if len(d.proposals) > 0 {
+				p := d.proposals[0]
+				if p.index == entry.Index {
+					if p.term == entry.Term {
+						// find entry
+						p.cb.Done(ErrResp(errEpochNotMatch))
+						return
+					}
+					NotifyStaleReq(entry.Term, p.cb)
+				}
+			}
+		}
+
+		split := req.GetSplit()
+		err = util.CheckKeyInRegion(split.SplitKey, region)
+		if err != nil {
+			if len(d.proposals) > 0 {
+				p := d.proposals[0]
+				if p.index == entry.Index {
+					if p.term == entry.Term {
+						// find entry
+						p.cb.Done(ErrResp(err))
+						return
+					}
+					NotifyStaleReq(entry.Term, p.cb)
+				}
+			}
+		}
+
+		storeMeta := d.ctx.storeMeta
+		storeMeta.Lock()
+		storeMeta.regionRanges.Delete(&regionItem{region: region})
+		region.RegionEpoch.Version++
+
+		newPeers := make([]*metapb.Peer, 0)
+		for i, peer := range region.Peers {
+			newPeers = append(newPeers, &metapb.Peer{Id: split.NewPeerIds[i], StoreId: peer.StoreId})
+		}
+		newRegion := &metapb.Region{
+			Id:       split.NewRegionId,
+			StartKey: split.SplitKey,
+			EndKey:   region.EndKey,
+			RegionEpoch: &metapb.RegionEpoch{
+				ConfVer: 1,
+				Version: 1,
+			},
+			Peers: newPeers,
+		}
+		storeMeta.regions[split.NewRegionId] = newRegion
+
+		region.EndKey = split.SplitKey
+
+		storeMeta.regionRanges.ReplaceOrInsert(&regionItem{region: newRegion})
+		storeMeta.regionRanges.ReplaceOrInsert(&regionItem{region: region})
+		storeMeta.Unlock()
 
 	case raft_cmdpb.AdminCmdType_TransferLeader:
-
 	}
 }
 

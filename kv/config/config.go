@@ -24,19 +24,22 @@ type Config struct {
 	// Interval to gc unnecessary raft log (ms).
 	RaftLogGCTickInterval time.Duration
 	// When entry count exceed this value, gc will be forced trigger.
+	// 检查日志数量是否超过阈值，超过则需要进行回收
 	RaftLogGcCountLimit uint64
 
 	// Interval (ms) to check region whether need to be split or not.
+	// 检查是否需要split的间隔时间
 	SplitRegionCheckTickInterval time.Duration
 	// delay time before deleting a stale peer
+	// 
 	SchedulerHeartbeatTickInterval      time.Duration
 	SchedulerStoreHeartbeatTickInterval time.Duration
 
 	// When region [a,e) size meets regionMaxSize, it will be split into
 	// several regions [a,b), [b,c), [c,d), [d,e). And the size of [a,b),
 	// [b,c), [c,d) will be regionSplitSize (maybe a little larger).
-	RegionMaxSize   uint64
-	RegionSplitSize uint64
+	RegionMaxSize   uint64 // region最大大小
+	RegionSplitSize uint64 // split的大小
 }
 
 func (c *Config) Validate() error {
