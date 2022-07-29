@@ -18,6 +18,7 @@ type peerState struct {
 }
 
 // router routes a message to a peer.
+// 路由信息
 type router struct {
 	peers       sync.Map // regionID -> peerState
 	peerSender  chan message.Msg

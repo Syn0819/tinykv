@@ -83,6 +83,7 @@ func (d *peerMsgHandler) handleAdminRequest(entry *eraftpb.Entry, msg *raft_cmdp
 		** 2. 读取分裂的region信息
 		** 3. 从被分离的region中删除分裂region的信息
 		** 4. 新建分裂的region信息
+		** 5. region信息写入引擎
 		 */
 		region := d.Region()
 		err := util.CheckRegionEpoch(msg, region, true)
@@ -143,6 +144,34 @@ func (d *peerMsgHandler) handleAdminRequest(entry *eraftpb.Entry, msg *raft_cmdp
 		storeMeta.regionRanges.ReplaceOrInsert(&regionItem{region: region})
 		storeMeta.Unlock()
 
+		meta.WriteRegionState(kvWB, region, rspb.PeerState_Normal)
+		meta.WriteRegionState(kvWB, newRegion, rspb.PeerState_Normal)
+
+		peer, err := createPeer(d.ctx.store.Id, d.ctx.cfg, d.ctx.schedulerTaskSender, d.ctx.engine, newRegion)
+		if err != nil {
+			panic(err)
+		}
+		d.ctx.router.register(peer)
+		d.ctx.router.send(newRegion.Id, message.Msg{Type: message.MsgTypeStart})
+		if len(d.proposals) > 0 {
+			p := d.proposals[0]
+			if p.index == entry.Index {
+				if p.term == entry.Term {
+					// find entry
+					p.cb.Done(&raft_cmdpb.RaftCmdResponse{
+						Header: &raft_cmdpb.RaftResponseHeader{},
+						AdminResponse: &raft_cmdpb.AdminResponse{
+							CmdType: raft_cmdpb.AdminCmdType_Split,
+							Split: &raft_cmdpb.SplitResponse{
+								Regions: []*metapb.Region{region, newRegion},
+							},
+						},
+					})
+					return
+				}
+				NotifyStaleReq(entry.Term, p.cb)
+			}
+		}
 	case raft_cmdpb.AdminCmdType_TransferLeader:
 	}
 }
