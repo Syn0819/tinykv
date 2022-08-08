@@ -53,7 +53,15 @@ func NewCluster(count int, schedulerClient *MockSchedulerClient, simulator Simul
 	}
 }
 
+/*
+集群启动流程：
+1. 初始化所有store
+2. 初始化region，包括regionEpoch，peers（每个store创建一个peer）
+3. 初始化调度器
+
+*/
 func (c *Cluster) Start() {
+	log.Infof("Cluster start progress")
 	ctx := context.TODO()
 	clusterID := c.schedulerClient.GetClusterID(ctx)
 
@@ -139,6 +147,7 @@ func (c *Cluster) Start() {
 	for storeID := range c.engines {
 		c.StartServer(storeID)
 	}
+	log.Infof("Cluster start progress finish")
 }
 
 func (c *Cluster) Shutdown() {
@@ -299,7 +308,7 @@ func (c *Cluster) MustPut(key, value []byte) {
 }
 
 func (c *Cluster) MustPutCF(cf string, key, value []byte) {
-	log.Infof("MustPutCF, key:%v, value:%v", key, value)
+	log.Infof("MustPutCF, key: %d, value: %d", key, value)
 	req := NewPutCfCmd(cf, key, value)
 	resp, _ := c.Request(key, []*raft_cmdpb.Request{req}, 5*time.Second)
 	if resp.Header.Error != nil {
@@ -413,6 +422,7 @@ func (c *Cluster) MustTransferLeader(regionID uint64, leader *metapb.Peer) {
 	timer := time.Now()
 	for {
 		currentLeader := c.LeaderOfRegion(regionID)
+		log.Infof("MustTransferLeader, currentLeader.ID: %d, currentLeader.StoreID: %d", currentLeader.Id, currentLeader.StoreId)
 		if currentLeader.Id == leader.Id &&
 			currentLeader.StoreId == leader.StoreId {
 			return
@@ -420,6 +430,7 @@ func (c *Cluster) MustTransferLeader(regionID uint64, leader *metapb.Peer) {
 		if time.Since(timer) > 5*time.Second {
 			panic(fmt.Sprintf("failed to transfer leader to [%d] %s", regionID, leader.String()))
 		}
+		log.Infof("MustTransferLeader, regionId: %d", regionID)
 		c.TransferLeader(regionID, leader)
 	}
 }
@@ -452,6 +463,7 @@ func (c *Cluster) MustHavePeer(regionID uint64, peer *metapb.Peer) {
 	panic(fmt.Sprintf("no peer: %v", peer))
 }
 
+// 检查是否删除peer
 func (c *Cluster) MustNonePeer(regionID uint64, peer *metapb.Peer) {
 	for i := 0; i < 500; i++ {
 		region, _, err := c.schedulerClient.GetRegionByID(context.TODO(), regionID)

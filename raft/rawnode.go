@@ -134,6 +134,7 @@ func (rn *RawNode) ProposeConfChange(cc pb.ConfChange) error {
 
 // ApplyConfChange applies a config change to the local node.
 func (rn *RawNode) ApplyConfChange(cc pb.ConfChange) *pb.ConfState {
+	log.Infof("ApplyConfChange, cc.NodeId: %d, cc.ChangeType: %d", cc.NodeId, cc.ChangeType)
 	if cc.NodeId == None {
 		return &pb.ConfState{Nodes: nodes(rn.Raft)}
 	}
@@ -145,6 +146,7 @@ func (rn *RawNode) ApplyConfChange(cc pb.ConfChange) *pb.ConfState {
 	default:
 		panic("unexpected conf type")
 	}
+	log.Infof("ApplyConfChange success, node.lens: %d", len(rn.Raft.Prs))
 	return &pb.ConfState{Nodes: nodes(rn.Raft)}
 }
 
@@ -200,18 +202,18 @@ func (rn *RawNode) HasReady() bool {
 		len(rn.Raft.RaftLog.nextEnts()))
 
 	if !IsEmptyHardState(hs) && !isHardStateEqual(hs, rn.hardst) {
-		log.Infof("has Ready")
+		log.Infof("has hardState Ready")
 		return true
 	}
 
 	if len(rn.Raft.msgs) > 0 || len(rn.Raft.RaftLog.unstableEntries()) > 0 ||
 		len(rn.Raft.RaftLog.nextEnts()) > 0 {
-		log.Infof("has Ready")
+		log.Infof("has log Ready")
 		return true
 	}
 
 	if !IsEmptySnap(rn.Raft.RaftLog.pendingSnapshot) {
-		log.Infof("has Ready")
+		log.Infof("has snapshot Ready")
 		return true
 	}
 	log.Infof("not has Ready")

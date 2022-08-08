@@ -121,6 +121,7 @@ func (m *MockSchedulerClient) AllocID(ctx context.Context) (uint64, error) {
 	return ret, nil
 }
 
+// 启动引导，主要设置了调度器中的一些参数
 func (m *MockSchedulerClient) Bootstrap(ctx context.Context, store *metapb.Store) (*schedulerpb.BootstrapResponse, error) {
 	m.Lock()
 	defer m.Unlock()
@@ -253,6 +254,7 @@ func (m *MockSchedulerClient) StoreHeartbeat(ctx context.Context, stats *schedul
 }
 
 func (m *MockSchedulerClient) RegionHeartbeat(req *schedulerpb.RegionHeartbeatRequest) error {
+	log.Infof("RegionHeartbeat, region: %d, req.Leader: %d", req.Region.Id, req.Leader.Id)
 	if err := m.checkBootstrap(); err != nil {
 		return err
 	}

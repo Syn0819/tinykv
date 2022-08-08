@@ -537,6 +537,7 @@ func (c *client) StoreHeartbeat(ctx context.Context, stats *schedulerpb.StoreSta
 }
 
 func (c *client) RegionHeartbeat(request *schedulerpb.RegionHeartbeatRequest) error {
+	log.Infof("RegionHeartbeat, region: %d, leader: %d", request.Region.Id, request.Leader.Id)
 	c.regionCh <- request
 	return nil
 }

@@ -90,7 +90,7 @@ func (snapCtx *snapContext) handleGen(regionId uint64, notifier chan<- *eraftpb.
 
 // applySnap applies snapshot data of the Region.
 func (snapCtx *snapContext) applySnap(regionId uint64, startKey, endKey []byte, snapMeta *eraftpb.SnapshotMetadata) error {
-	log.Infof("begin apply snap data. [regionId: %d]", regionId)
+	log.Infof("begin apply snap data. [regionId: %d], startKey: %d, endKey: %d", regionId, startKey, endKey)
 
 	// cleanUpOriginData clear up the region data before applying snapshot
 	snapCtx.cleanUpRange(regionId, startKey, endKey)
@@ -123,7 +123,7 @@ func (snapCtx *snapContext) handleApply(regionId uint64, notifier chan<- bool, s
 	err := snapCtx.applySnap(regionId, startKey, endKey, snapMeta)
 	if err != nil {
 		notifier <- false
-		log.Fatalf("failed to apply snap!!!. err: %v", err)
+		log.Infof("failed to apply snap!!!. err: %v", err)
 	}
 	notifier <- true
 }

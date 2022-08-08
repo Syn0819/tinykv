@@ -58,6 +58,8 @@ import (
 	"sort"
 	"strings"
 	"sync"
+
+	"github.com/pingcap-incubator/tinykv/log"
 )
 
 // Item represents a single object in the tree.
@@ -882,6 +884,7 @@ func (t *BTree) ReplaceOrInsert(item Item) Item {
 // Delete removes an item equal to the passed in item from the tree, returning
 // it.  If no such item exists, returns nil.
 func (t *BTree) Delete(item Item) Item {
+	log.Infof("btree Delete, regionID")
 	return t.deleteItem(item, removeItem)
 }
 

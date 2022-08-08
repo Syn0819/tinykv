@@ -263,6 +263,7 @@ func (r *Raft) handleSnapshot(m pb.Message) {
 	}
 
 	r.becomeFollower(max(m.Term, r.Term), m.From)
+
 	// update state
 	r.RaftLog.firstIndex = meta.Index + 1
 	r.RaftLog.applied = meta.Index
@@ -345,6 +346,10 @@ func (r *Raft) handleAppendEntriesResponse(m pb.Message) {
 	}
 }
 
+/*
+** Function：处理leader转移
+				1.
+*/
 func (r *Raft) handleTransferLeader(m pb.Message) {
 	// 自己发给自己
 	if m.From == r.id {
@@ -361,7 +366,8 @@ func (r *Raft) handleTransferLeader(m pb.Message) {
 
 	// is qualified?
 	r.leadTransferee = m.From
-
+	r.transferElapsed = 0
+	// check log newest?
 	if r.Prs[m.From].Match == r.RaftLog.LastIndex() {
 		r.sendTimeoutNow(m.From)
 	} else {

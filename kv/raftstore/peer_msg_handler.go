@@ -2,6 +2,7 @@ package raftstore
 
 import (
 	"fmt"
+	"reflect"
 	"time"
 
 	"github.com/Connor1996/badger/y"
@@ -84,7 +85,7 @@ func (d *peerMsgHandler) handleAdminRequest(entry *eraftpb.Entry, msg *raft_cmdp
 		** 3. 从被分离的region中删除分裂region的信息
 		** 4. 新建分裂的region信息
 		** 5. region信息写入引擎
-		 */
+
 		region := d.Region()
 		err := util.CheckRegionEpoch(msg, region, true)
 		if errEpochNotMatch, ok := err.(*util.ErrRegionNotFound); ok {
@@ -171,15 +172,31 @@ func (d *peerMsgHandler) handleAdminRequest(entry *eraftpb.Entry, msg *raft_cmdp
 				}
 				NotifyStaleReq(entry.Term, p.cb)
 			}
-		}
+		}*/
 	case raft_cmdpb.AdminCmdType_TransferLeader:
 	}
+
 }
 
 //
 func (d *peerMsgHandler) handleRequest(entry *eraftpb.Entry, msg *raft_cmdpb.RaftCmdRequest, kvWB *engine_util.WriteBatch) *engine_util.WriteBatch {
 	req := msg.Requests[0]
-
+	key := d.getRequestKey(req)
+	if key != nil {
+		err := util.CheckKeyInRegion(key, d.Region())
+		if err != nil {
+			if len(d.proposals) > 0 {
+				p := d.proposals[0]
+				if p.index == entry.Index {
+					if p.term == entry.Term {
+						p.cb.Done(ErrResp(err))
+					} else {
+						NotifyStaleReq(entry.Term, p.cb)
+					}
+				}
+			}
+		}
+	}
 	// real handle request into kv
 
 	// 读操作不需要前后缀
@@ -241,6 +258,20 @@ func (d *peerMsgHandler) searchAPeerInRegion(region *metapb.Region, id uint64) i
 		}
 	}
 	return len(region.Peers)
+}
+
+func (d *peerMsgHandler) notifyHeartbeatScheduler(region *metapb.Region, peer *peer) {
+	clonedRegion := new(metapb.Region)
+	err := util.CloneMsg(region, clonedRegion)
+	if err != nil {
+		return
+	}
+	d.ctx.schedulerTaskSender <- &runner.SchedulerRegionHeartbeatTask{
+		Region:          clonedRegion,
+		Peer:            peer.Meta,
+		PendingPeers:    peer.CollectPendingPeers(),
+		ApproximateSize: peer.ApproximateSize,
+	}
 }
 
 func (d *peerMsgHandler) handleConfChange(entry *eraftpb.Entry, cc *eraftpb.ConfChange, kvWB *engine_util.WriteBatch) {
@@ -311,6 +342,8 @@ func (d *peerMsgHandler) handleConfChange(entry *eraftpb.Entry, cc *eraftpb.Conf
 
 	// raft模块实际处理conf change
 	d.RaftGroup.ApplyConfChange(*cc)
+
+	d.notifyHeartbeatScheduler(region, d.peer)
 	// 回响应
 	if len(d.proposals) > 0 {
 		p := d.proposals[0]
@@ -372,7 +405,21 @@ func (d *peerMsgHandler) HandleRaftReady() {
 	if d.RaftGroup.HasReady() {
 		ready := d.RaftGroup.Ready()
 
-		d.peerStorage.SaveReadyState(&ready)
+		result, err := d.peerStorage.SaveReadyState(&ready)
+		if err != nil {
+			panic(err)
+		}
+		if result != nil {
+			if !reflect.DeepEqual(result.PrevRegion, result.Region) {
+				d.peerStorage.SetRegion(result.Region)
+				storeMeta := d.ctx.storeMeta
+				storeMeta.Lock()
+				storeMeta.regions[result.Region.Id] = result.Region
+				storeMeta.regionRanges.Delete(&regionItem{region: result.PrevRegion})
+				storeMeta.regionRanges.ReplaceOrInsert(&regionItem{region: result.Region})
+				storeMeta.Unlock()
+			}
+		}
 
 		d.Send(d.ctx.trans, ready.Messages)
 		if len(ready.CommittedEntries) > 0 {
@@ -403,6 +450,7 @@ func (d *peerMsgHandler) HandleRaftReady() {
 }
 
 func (d *peerMsgHandler) HandleMsg(msg message.Msg) {
+	log.Infof("HandleMsg, message type: %v", msg.Type)
 	switch msg.Type {
 	case message.MsgTypeRaftMessage:
 		raftMsg := msg.Data.(*rspb.RaftMessage)
@@ -471,7 +519,6 @@ func (d *peerMsgHandler) proposeAdminRequest(msg *raft_cmdpb.RaftCmdRequest, cb 
 	switch req.CmdType {
 	case raft_cmdpb.AdminCmdType_ChangePeer:
 		//
-
 		context, err := msg.Marshal()
 		if err != nil {
 			panic(err)
@@ -845,6 +892,12 @@ func (d *peerMsgHandler) destroyPeer() {
 	}
 	d.ctx.router.close(regionID)
 	d.stopped = true
+	log.Infof("destroyPeer, isInitialized: %d, region: %d", isInitialized, d.Region())
+	log.Infof("destroyPeer, regionRanges size: %d", meta.regionRanges.Len())
+	meta.regionRanges.Ascend(func(i btree.Item) bool {
+		log.Infof("destroyPeer, search regionRanges, regionID: %d, startKey: %d, endKey: %d", i.(*regionItem).region.Id, i.(*regionItem).region.StartKey, i.(*regionItem).region.EndKey)
+		return true
+	})
 	if isInitialized && meta.regionRanges.Delete(&regionItem{region: d.Region()}) == nil {
 		panic(d.Tag + " meta corruption detected")
 	}

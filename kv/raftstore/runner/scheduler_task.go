@@ -51,10 +51,13 @@ func NewSchedulerTaskHandler(storeID uint64, SchedulerClient scheduler_client.Cl
 func (r *SchedulerTaskHandler) Handle(t worker.Task) {
 	switch t.(type) {
 	case *SchedulerAskSplitTask:
+		log.Infof("SchedulerTask, Handle, SchedulerAskSplitTask")
 		r.onAskSplit(t.(*SchedulerAskSplitTask))
 	case *SchedulerRegionHeartbeatTask:
+		log.Infof("SchedulerTask, Handle, SchedulerRegionHeartbeatTask")
 		r.onHeartbeat(t.(*SchedulerRegionHeartbeatTask))
 	case *SchedulerStoreHeartbeatTask:
+		log.Infof("SchedulerTask, Handle, SchedulerStoreHeartbeatTask")
 		r.onStoreHeartbeat(t.(*SchedulerStoreHeartbeatTask))
 	default:
 		log.Errorf("unsupported worker.Task: %+v", t)

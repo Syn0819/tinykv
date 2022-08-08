@@ -154,6 +154,7 @@ type Raft struct {
 	// (Used in 3A leader transfer)
 	leadTransferee uint64
 
+	transferElapsed int
 	// Only one conf change may be pending (in the log, but not yet
 	// applied) at a time. This is enforced via PendingConfIndex, which
 	// is set to a value >= the log index of the latest pending
@@ -230,6 +231,14 @@ func (r *Raft) checkSendHeartbeat() {
 
 }
 
+func (r *Raft) tickTransfer() {
+	r.transferElapsed++
+	if r.transferElapsed >= r.electionTimeout*2 {
+		r.transferElapsed = 0
+		r.leadTransferee = None
+	}
+}
+
 // tick advances the internal logical clock by a single tick.
 func (r *Raft) tick() {
 	// Your Code Here (2A).
@@ -239,6 +248,9 @@ func (r *Raft) tick() {
 	case StateCandidate:
 		r.checkSendElection()
 	case StateLeader:
+		if r.leadTransferee != None {
+			r.tickTransfer()
+		}
 		r.checkSendHeartbeat()
 	}
 }
@@ -415,8 +427,11 @@ func (r *Raft) Commit() {
 	// check whether log needed to be commit, which quorum confirm
 	lens := len(r.Prs)
 	allMatchIndex := make(uint64Slice, lens)
-	for i, peer := range r.Prs {
-		allMatchIndex[i-1] = peer.Match
+	log.Infof("Commit, lens: %d, allMatchIndex: %d", lens, allMatchIndex)
+	i := 0
+	for _, peer := range r.Prs {
+		allMatchIndex[i] = peer.Match
+		i++
 	}
 
 	sort.Sort(allMatchIndex)
@@ -437,6 +452,7 @@ func (r *Raft) Commit() {
 // addNode add a new node to raft group
 func (r *Raft) addNode(id uint64) {
 	// Your Code Here (3A).
+	log.Infof("addNode, id: %d", id)
 	if _, ok := r.Prs[id]; !ok {
 		log.Infof("do not find the node id:%v, add to r.Prs", id)
 		r.Prs[id] = &Progress{Next: 1}
@@ -447,8 +463,10 @@ func (r *Raft) addNode(id uint64) {
 // removeNode remove a node from raft group
 func (r *Raft) removeNode(id uint64) {
 	// Your Code Here (3A).
+	log.Infof("removeNode, id: %d", id)
 	if _, ok := r.Prs[id]; ok {
 		delete(r.Prs, id)
+		log.Infof("removeNode, r.Prs: %d", r.Prs)
 		if r.State == StateLeader {
 			r.Commit()
 		}
