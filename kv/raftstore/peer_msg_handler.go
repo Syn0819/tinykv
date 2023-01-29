@@ -59,7 +59,7 @@ func (d *peerMsgHandler) getRequestKey(req *raft_cmdpb.Request) []byte {
 
 func (d *peerMsgHandler) handleAdminRequest(entry *eraftpb.Entry, msg *raft_cmdpb.RaftCmdRequest, kvWB *engine_util.WriteBatch) {
 	req := msg.AdminRequest
-
+	log.Infof("handleAdminRequest, req.CmdType: %v", req.CmdType)
 	switch req.CmdType {
 	case raft_cmdpb.AdminCmdType_CompactLog:
 		// 处理逻辑：
@@ -85,7 +85,7 @@ func (d *peerMsgHandler) handleAdminRequest(entry *eraftpb.Entry, msg *raft_cmdp
 		** 3. 从被分离的region中删除分裂region的信息
 		** 4. 新建分裂的region信息
 		** 5. region信息写入引擎
-
+		 */
 		region := d.Region()
 		err := util.CheckRegionEpoch(msg, region, true)
 		if errEpochNotMatch, ok := err.(*util.ErrRegionNotFound); ok {
@@ -117,7 +117,7 @@ func (d *peerMsgHandler) handleAdminRequest(entry *eraftpb.Entry, msg *raft_cmdp
 				}
 			}
 		}
-
+		// 修改meta信息
 		storeMeta := d.ctx.storeMeta
 		storeMeta.Lock()
 		storeMeta.regionRanges.Delete(&regionItem{region: region})
@@ -145,9 +145,11 @@ func (d *peerMsgHandler) handleAdminRequest(entry *eraftpb.Entry, msg *raft_cmdp
 		storeMeta.regionRanges.ReplaceOrInsert(&regionItem{region: region})
 		storeMeta.Unlock()
 
+		// 持久化新 旧region信息
 		meta.WriteRegionState(kvWB, region, rspb.PeerState_Normal)
 		meta.WriteRegionState(kvWB, newRegion, rspb.PeerState_Normal)
 
+		// 真正的去创建新peer并且注册进入router
 		peer, err := createPeer(d.ctx.store.Id, d.ctx.cfg, d.ctx.schedulerTaskSender, d.ctx.engine, newRegion)
 		if err != nil {
 			panic(err)
@@ -172,7 +174,7 @@ func (d *peerMsgHandler) handleAdminRequest(entry *eraftpb.Entry, msg *raft_cmdp
 				}
 				NotifyStaleReq(entry.Term, p.cb)
 			}
-		}*/
+		}
 	case raft_cmdpb.AdminCmdType_TransferLeader:
 	}
 
@@ -670,7 +672,7 @@ func (d *peerMsgHandler) ScheduleCompactLog(truncatedIndex uint64) {
 }
 
 func (d *peerMsgHandler) onRaftMsg(msg *rspb.RaftMessage) error {
-	log.Debugf("%s handle raft message %s from %d to %d",
+	log.Infof("%s handle raft message %s from %d to %d",
 		d.Tag, msg.GetMessage().GetMsgType(), msg.GetFromPeer().GetId(), msg.GetToPeer().GetId())
 	if !d.validateRaftMessage(msg) {
 		return nil
@@ -960,16 +962,21 @@ func (d *peerMsgHandler) onSplitRegionCheckTick() {
 	d.ticker.schedule(PeerTickSplitRegionCheck)
 	// To avoid frequent scan, we only add new scan tasks if all previous tasks
 	// have finished.
+	// 为了避免频繁扫描，只在上一个扫描完成后进行下一次扫描
 	if len(d.ctx.splitCheckTaskSender) > 0 {
 		return
 	}
 
+	// 只有leader节点能进行split扫描
 	if !d.IsLeader() {
 		return
 	}
+	//
 	if d.ApproximateSize != nil && d.SizeDiffHint < d.ctx.cfg.RegionSplitSize/8 {
 		return
 	}
+	// 发送任务至split_checker.go
+	log.Infof("onSplitRegionCheckTick, SplitCheckTask send...")
 	d.ctx.splitCheckTaskSender <- &runner.SplitCheckTask{
 		Region: d.Region(),
 	}
@@ -977,6 +984,7 @@ func (d *peerMsgHandler) onSplitRegionCheckTick() {
 }
 
 func (d *peerMsgHandler) onPrepareSplitRegion(regionEpoch *metapb.RegionEpoch, splitKey []byte, cb *message.Callback) {
+	log.Infof("onPrepareSplitRegion")
 	if err := d.validateSplitRegion(regionEpoch, splitKey); err != nil {
 		cb.Done(ErrResp(err))
 		return

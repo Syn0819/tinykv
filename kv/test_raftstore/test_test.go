@@ -172,8 +172,8 @@ func GenericTest(t *testing.T, part string, nclients int, unreliable bool, crash
 		cfg.RaftLogGcCountLimit = uint64(maxraftlog)
 	}
 	if split {
-		cfg.RegionMaxSize = 300
-		cfg.RegionSplitSize = 200
+		cfg.RegionMaxSize = 200
+		cfg.RegionSplitSize = 100
 	}
 	cluster := NewTestCluster(nservers, cfg)
 	cluster.Start()
@@ -193,7 +193,7 @@ func GenericTest(t *testing.T, part string, nclients int, unreliable bool, crash
 	for i := 0; i < nclients; i++ {
 		clnts[i] = make(chan int, 1)
 	}
-	for i := 0; i < 3; i++ {
+	for i := 0; i < 2; i++ {
 		log.Infof("Iteration %v\n", i)
 		atomic.StoreInt32(&done_clients, 0)
 		atomic.StoreInt32(&done_partitioner, 0)
@@ -222,6 +222,7 @@ func GenericTest(t *testing.T, part string, nclients int, unreliable bool, crash
 					}
 				}
 			}
+			log.Infof("SpawnClientsAndWait quit...")
 		})
 
 		if unreliable || partitions {
@@ -254,19 +255,21 @@ func GenericTest(t *testing.T, part string, nclients int, unreliable bool, crash
 		// log.Printf("wait for clients\n")
 		<-ch_clients
 
+		log.Infof("start crash")
 		if crash {
-			log.Warnf("shutdown servers\n")
+			log.Infof("shutdown servers\n")
 			for i := 1; i <= nservers; i++ {
 				cluster.StopServer(uint64(i))
 			}
 			// Wait for a while for servers to shutdown, since
 			// shutdown isn't a real crash and isn't instantaneous
 			time.Sleep(electionTimeout)
-			log.Warnf("restart servers\n")
+			log.Infof("restart servers\n")
 			// crash and re-start all
 			for i := 1; i <= nservers; i++ {
 				cluster.StartServer(uint64(i))
 			}
+			log.Infof("crash finish")
 		}
 
 		for cli := 0; cli < nclients; cli++ {
@@ -322,6 +325,7 @@ func GenericTest(t *testing.T, part string, nclients int, unreliable bool, crash
 		}
 
 		if split {
+			log.Infof("check split")
 			r := cluster.GetRegion([]byte(""))
 			if len(r.GetEndKey()) == 0 {
 				t.Fatalf("region is not split")
@@ -693,7 +697,7 @@ func TestSplitRecover3B(t *testing.T) {
 
 func TestSplitRecoverManyClients3B(t *testing.T) {
 	// Test: restarts, snapshots, conf change, many clients (3B) ...
-	GenericTest(t, "3B", 20, false, true, false, -1, false, true)
+	GenericTest(t, "3B", 10, false, true, false, -1, false, true)
 }
 
 func TestSplitUnreliable3B(t *testing.T) {

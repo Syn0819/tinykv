@@ -29,7 +29,7 @@ type regionItem struct {
 }
 
 // Less returns true if the region start key is less than the other.
-// 实现接口
+// 实现接口，比较的是start key
 func (r *regionItem) Less(other btree.Item) bool {
 	left := r.region.GetStartKey()
 	right := other.(*regionItem).region.GetStartKey()
@@ -60,6 +60,14 @@ func (m *storeMeta) setRegion(region *metapb.Region, peer *peer) {
 }
 
 // getOverlaps gets the regions which are overlapped with the specified region range.
+/*
+函数作用：获取与特定region范围重合的regions
+处理逻辑
+1. regionRanges中查找第一个小于等于当前region的region
+2. 若查询region为空 或者 当前region的start key大于等于查询region的end key时，说明
+	当前region与查询region无重叠，直接从当前region开始check后续
+3. 向上查询重叠区域，直到查询到第一个无重叠区域
+*/
 func (m *storeMeta) getOverlapRegions(region *metapb.Region) []*metapb.Region {
 	item := &regionItem{region: region}
 	var result *regionItem

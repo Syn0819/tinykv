@@ -466,7 +466,7 @@ func (r *Raft) removeNode(id uint64) {
 	log.Infof("removeNode, id: %d", id)
 	if _, ok := r.Prs[id]; ok {
 		delete(r.Prs, id)
-		log.Infof("removeNode, r.Prs: %d", r.Prs)
+		//log.Infof("removeNode, r.Prs: %d", r.Prs)
 		if r.State == StateLeader {
 			r.Commit()
 		}

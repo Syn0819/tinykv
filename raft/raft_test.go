@@ -56,6 +56,7 @@ func (r *Raft) readMessages() []pb.Message {
 	return msgs
 }
 
+// 测试leader选举后，日志的同步，以及接受propose
 func TestProgressLeader2AB(t *testing.T) {
 	r := newTestRaft(1, []uint64{1, 2}, 5, 1, NewMemoryStorage())
 	r.becomeCandidate()
@@ -73,6 +74,7 @@ func TestProgressLeader2AB(t *testing.T) {
 	}
 }
 
+// 测试leader选举，不同的投票节点数
 func TestLeaderElection2AA(t *testing.T) {
 	var cfg func(*Config)
 	tests := []struct {
@@ -102,6 +104,7 @@ func TestLeaderElection2AA(t *testing.T) {
 // testLeaderCycle verifies that each node in a cluster can campaign
 // and be elected in turn. This ensures that elections work when not
 // starting from a clean slate (as they do in TestLeaderElection)
+// 测试 节点轮流进行选举
 func TestLeaderCycle2AA(t *testing.T) {
 	var cfg func(*Config)
 	n := newNetworkWithConfig(cfg, nil, nil, nil)
@@ -126,6 +129,8 @@ func TestLeaderCycle2AA(t *testing.T) {
 // newly-elected leader does *not* have the newest (i.e. highest term)
 // log entries, and must overwrite higher-term log entries with
 // lower-term ones.
+// 测试 一个最新被选举出来的leader 没有最新的log entries，也就是没有最高term的log
+// 需要将高于leader term的日志有低term日志
 func TestLeaderElectionOverwriteNewerLogs2AB(t *testing.T) {
 	cfg := func(c *Config) {
 		c.peers = idsBySize(5)
@@ -154,8 +159,9 @@ func TestLeaderElectionOverwriteNewerLogs2AB(t *testing.T) {
 	// Node 1 campaigns. The election fails because a quorum of nodes
 	// know about the election that already happened at term 2. Node 1's
 	// term is pushed ahead to 2.
+	// 节点1选举，会失败因为大多数节点知道选举已经在term 2发生过了
 
-	log.Infof("TestLeaderElectionOverwriteNewerLogs2AB, From: 1, To: 1, MsgType: pb.MessageType_MsgHup")
+	// log.Infof("TestLeaderElectionOverwriteNewerLogs2AB, From: 1, To: 1, MsgType: pb.MessageType_MsgHup")
 	n.send(pb.Message{From: 1, To: 1, MsgType: pb.MessageType_MsgHup})
 	sm1 := n.peers[1].(*Raft)
 	if sm1.State != StateFollower {
@@ -166,7 +172,8 @@ func TestLeaderElectionOverwriteNewerLogs2AB(t *testing.T) {
 	}
 
 	// Node 1 campaigns again with a higher term. This time it succeeds.
-	log.Infof("TestLeaderElectionOverwriteNewerLogs2AB, From: 1, To: 1, MsgType: pb.MessageType_MsgHup")
+	// log.Infof("TestLeaderElectionOverwriteNewerLogs2AB, From: 1, To: 1, MsgType: pb.MessageType_MsgHup")
+	// 节点1再次选举，成功，term3
 	n.send(pb.Message{From: 1, To: 1, MsgType: pb.MessageType_MsgHup})
 	if sm1.State != StateLeader {
 		t.Errorf("state = %s, want StateLeader", sm1.State)
@@ -177,6 +184,7 @@ func TestLeaderElectionOverwriteNewerLogs2AB(t *testing.T) {
 
 	// Now all nodes agree on a log entry with term 1 at index 1 (and
 	// term 3 at index 2).
+	// 检查所有节点日志
 	for i := range n.peers {
 		sm := n.peers[i].(*Raft)
 		entries := sm.RaftLog.entries
@@ -192,6 +200,7 @@ func TestLeaderElectionOverwriteNewerLogs2AB(t *testing.T) {
 	}
 }
 
+// 检查从任意状态进行投票
 func TestVoteFromAnyState2AA(t *testing.T) {
 	vt := pb.MessageType_MsgRequestVote
 	vt_resp := pb.MessageType_MsgRequestVoteResponse
@@ -251,6 +260,7 @@ func TestVoteFromAnyState2AA(t *testing.T) {
 	}
 }
 
+// 检查日志复制功能
 func TestLogReplication2AB(t *testing.T) {
 	tests := []struct {
 		*network
@@ -310,6 +320,7 @@ func TestLogReplication2AB(t *testing.T) {
 	}
 }
 
+// 测试commit功能，这个要在propose之后，大多数节点commit之后立即commit
 func TestSingleNodeCommit2AB(t *testing.T) {
 	tt := newNetwork(nil)
 	tt.send(pb.Message{From: 1, To: 1, MsgType: pb.MessageType_MsgHup})
@@ -324,6 +335,7 @@ func TestSingleNodeCommit2AB(t *testing.T) {
 
 // TestCommitWithoutNewTermEntry tests the entries could be committed
 // when leader changes with noop entry and no new proposal comes in.
+// 测试网络分区，恢复后commit
 func TestCommitWithoutNewTermEntry2AB(t *testing.T) {
 	tt := newNetwork(nil, nil, nil, nil, nil)
 	tt.send(pb.Message{From: 1, To: 1, MsgType: pb.MessageType_MsgHup})
@@ -357,6 +369,7 @@ func TestCommitWithoutNewTermEntry2AB(t *testing.T) {
 // TestCommitWithHeartbeat tests leader can send log
 // to follower when it received a heartbeat response
 // which indicate it doesn't have update-to-date log
+// 测试leader在收到心跳回复后给follower发送日志
 func TestCommitWithHeartbeat2AB(t *testing.T) {
 	tt := newNetwork(nil, nil, nil, nil, nil)
 	tt.send(pb.Message{From: 1, To: 1, MsgType: pb.MessageType_MsgHup})
@@ -764,6 +777,7 @@ func TestCandidateResetTermMessageType_MsgAppend2AA(t *testing.T) {
 // testCandidateResetTerm tests when a candidate receives a
 // MessageType_MsgHeartbeat or MessageType_MsgAppend from leader, "Step" resets the term
 // with leader's and reverts back to follower.
+// 检查candidate收到心跳包或者append，candidate更新状态
 func testCandidateResetTerm(t *testing.T, mt pb.MessageType) {
 	a := newTestRaft(1, []uint64{1, 2, 3}, 10, 1, NewMemoryStorage())
 	b := newTestRaft(2, []uint64{1, 2, 3}, 10, 1, NewMemoryStorage())

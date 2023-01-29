@@ -329,9 +329,6 @@ func (ps *PeerStorage) Append(entries []eraftpb.Entry, raftWB *engine_util.Write
 	}
 
 	regionID := ps.region.GetId()
-	for _, entry := range entries {
-		raftWB.SetMeta(meta.RaftLogKey(regionID, entry.Index), &entry)
-	}
 
 	// delete log entries that will never be committed
 	redundantIndex, err := ps.LastIndex()
@@ -343,6 +340,10 @@ func (ps *PeerStorage) Append(entries []eraftpb.Entry, raftWB *engine_util.Write
 		for i := eIndex + 1; i <= redundantIndex; i++ {
 			raftWB.DeleteMeta(meta.RaftLogKey(regionID, i))
 		}
+	}
+
+	for _, entry := range entries {
+		raftWB.SetMeta(meta.RaftLogKey(regionID, entry.Index), &entry)
 	}
 
 	// update ps.raftState
@@ -395,12 +396,14 @@ func (ps *PeerStorage) ApplySnapshot(snapshot *eraftpb.Snapshot, kvWB *engine_ut
 
 // Save memory states to disk.
 // Do not modify ready in this function, this is a requirement to advance the ready object properly later.
+// 将内存状态持久化到硬盘
 func (ps *PeerStorage) SaveReadyState(ready *raft.Ready) (*ApplySnapResult, error) {
 	// Hint: you may call `Append()` and `ApplySnapshot()` in this function
 	// Your Code Here (2B/2C).
 	var result *ApplySnapResult
 	var err error
 	raftWB := new(engine_util.WriteBatch)
+	// 存在snapshot
 	if !raft.IsEmptySnap(&ready.Snapshot) {
 		kvWB := new(engine_util.WriteBatch)
 		result, err = ps.ApplySnapshot(&ready.Snapshot, kvWB, raftWB)
